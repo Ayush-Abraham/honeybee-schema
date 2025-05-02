@@ -16,37 +16,58 @@ target_folder = os.path.join(root, "samples", "construction")
 
 def test_construction_window_double():
     file_path = os.path.join(target_folder, "construction_window_double.json")
-    WindowConstructionAbridged.parse_file(file_path)
+    # WindowConstructionAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    WindowConstructionAbridged.model_validate_json(json_data)
 
 
 def test_construction_window_triple():
     file_path = os.path.join(target_folder, "construction_window_triple.json")
-    WindowConstructionAbridged.parse_file(file_path)
+    # WindowConstructionAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    WindowConstructionAbridged.model_validate_json(json_data)
 
 
 def test_construction_opaque_door():
     file_path = os.path.join(target_folder, "construction_opaque_door.json")
-    OpaqueConstructionAbridged.parse_file(file_path)
+    # OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    OpaqueConstructionAbridged.model_validate_json(json_data)
 
 
 def test_construction_opaque_roof():
     file_path = os.path.join(target_folder, "construction_opaque_roof.json")
-    OpaqueConstructionAbridged.parse_file(file_path)
+    # OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    OpaqueConstructionAbridged.model_validate_json(json_data)
 
 
 def test_construction_opaque_wall():
     file_path = os.path.join(target_folder, "construction_opaque_wall.json")
-    OpaqueConstructionAbridged.parse_file(file_path)
+    # OpaqueConstructionAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    OpaqueConstructionAbridged.model_validate_json(json_data)
 
 
 def test_construction_window_shade():
     file_path = os.path.join(target_folder, "construction_window_shade.json")
-    WindowConstructionShadeAbridged.parse_file(file_path)
+    # WindowConstructionShadeAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    WindowConstructionShadeAbridged.model_validate_json(json_data)
 
 
 def test_construction_window_blinds():
     file_path = os.path.join(target_folder, "construction_window_blinds.json")
-    WindowConstructionShadeAbridged.parse_file(file_path)
+    # WindowConstructionShadeAbridged.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    WindowConstructionShadeAbridged.model_validate_json(json_data)
 
 
 def test_length_opaque():

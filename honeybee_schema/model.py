@@ -50,9 +50,9 @@ class ShadeMeshPropertiesAbridged(BaseModel):
         "ShadeMeshPropertiesAbridged"
     )
 
-    energy: ShadeMeshEnergyPropertiesAbridged = Field(default=None)
+    energy: ShadeMeshEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: ShadeMeshRadiancePropertiesAbridged = Field(default=None)
+    radiance: ShadeMeshRadiancePropertiesAbridged | None = Field(default=None)
 
 
 class ShadeMesh(IDdBaseModel):
@@ -79,9 +79,9 @@ class ShadePropertiesAbridged(BaseModel):
         "ShadePropertiesAbridged"
     )
 
-    energy: ShadeEnergyPropertiesAbridged = Field(default=None)
+    energy: ShadeEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: ShadeRadiancePropertiesAbridged = Field(default=None)
+    radiance: ShadeRadiancePropertiesAbridged | None = Field(default=None)
 
 
 class Shade(IDdBaseModel):
@@ -109,9 +109,9 @@ class DoorPropertiesAbridged(BaseModel):
         "DoorPropertiesAbridged"
     )
 
-    energy: DoorEnergyPropertiesAbridged = Field(default=None)
+    energy: DoorEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: DoorRadiancePropertiesAbridged = Field(default=None)
+    radiance: DoorRadiancePropertiesAbridged | None = Field(default=None)
 
 
 class Door(IDdBaseModel):
@@ -136,11 +136,11 @@ class Door(IDdBaseModel):
         "to an opaque door.",
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: List[Shade] | None = Field(
         default=None, description="Shades assigned to the interior side of this object."
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the exterior side of this object "
         "(eg. entryway awning).",
@@ -158,9 +158,9 @@ class AperturePropertiesAbridged(BaseModel):
         "AperturePropertiesAbridged"
     )
 
-    energy: ApertureEnergyPropertiesAbridged = Field(default=None)
+    energy: ApertureEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: ApertureRadiancePropertiesAbridged = Field(default=None)
+    radiance: ApertureRadiancePropertiesAbridged | None = Field(default=None)
 
 
 class Aperture(IDdBaseModel):
@@ -184,13 +184,13 @@ class Aperture(IDdBaseModel):
         description="Boolean to note whether the Aperture can be opened for ventilation.",
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the interior side of this object "
         "(eg. window sill, light shelf).",
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the exterior side of this object "
         "(eg. mullions, louvers).",
@@ -208,9 +208,9 @@ class FacePropertiesAbridged(BaseModel):
         "FacePropertiesAbridged"
     )
 
-    energy: FaceEnergyPropertiesAbridged = Field(default=None)
+    energy: FaceEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: FaceRadiancePropertiesAbridged = Field(default=None)
+    radiance: FaceRadiancePropertiesAbridged | None = Field(default=None)
 
 
 class FaceType(str, Enum):
@@ -240,23 +240,23 @@ class Face(IDdBaseModel):
             )
         return v
 
-    apertures: List[Aperture] = Field(
+    apertures: List[Aperture] | None = Field(
         default=None,
         description="Apertures assigned to this Face. Should be coplanar with this "
         "Face and completely within the boundary of the Face to be valid.",
     )
 
-    doors: List[Door] = Field(
+    doors: List[Door] | None = Field(
         default=None,
         description="Doors assigned to this Face. Should be coplanar with this "
         "Face and completely within the boundary of the Face to be valid.",
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: List[Shade] | None = Field(
         default=None, description="Shades assigned to the interior side of this object."
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the exterior side of this object "
         "(eg. balcony, overhang).",
@@ -269,14 +269,14 @@ class Face(IDdBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_air_boundaries_are_interior(cls, values):
+    def check_air_boundaries_are_interior(self):
         """Check that all air wall faces have a Surface boundary condition."""
-        face_type, bc = values.get("face_type"), values.get("boundary_condition")
+        face_type, bc = self.face_type, self.boundary_condition
         if face_type == "AirBoundary":
             assert bc.type == "Surface", (
                 'AirBoundaries must have "Surface" boundary conditions.'
             )
-        return values
+        return self
 
 
 class RoomPropertiesAbridged(BaseModel):
@@ -284,11 +284,11 @@ class RoomPropertiesAbridged(BaseModel):
         "RoomPropertiesAbridged"
     )
 
-    energy: RoomEnergyPropertiesAbridged = Field(default=None)
+    energy: RoomEnergyPropertiesAbridged | None = Field(default=None)
 
-    radiance: RoomRadiancePropertiesAbridged = Field(default=None)
+    radiance: RoomRadiancePropertiesAbridged | None = Field(default=None)
 
-    doe2: RoomDoe2Properties = Field(default=None)
+    doe2: RoomDoe2Properties | None = Field(default=None)
 
 
 class Room(IDdBaseModel):
@@ -300,13 +300,13 @@ class Room(IDdBaseModel):
         description="Faces that together form the closed volume of a room.",
     )
 
-    indoor_shades: List[Shade] = Field(
+    indoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the interior side of this object "
         "(eg. partitions, tables).",
     )
 
-    outdoor_shades: List[Shade] = Field(
+    outdoor_shades: List[Shade] | None = Field(
         default=None,
         description="Shades assigned to the exterior side of this object "
         "(eg. trees, landscaping).",
@@ -329,7 +329,7 @@ class Room(IDdBaseModel):
         "any calculations when the Room is part of a Model, including EUI calculations.",
     )
 
-    zone: str = Field(
+    zone: str | None = Field(
         default=None,
         description="Text string for for the zone identifier to which this Room belongs. "
         "Rooms sharing the same zone identifier are considered part of the same zone "
@@ -338,7 +338,7 @@ class Room(IDdBaseModel):
         "property has no character restrictions.",
     )
 
-    story: str = Field(
+    story: str | None = Field(
         default=None,
         description="Text string for the story identifier to which this Room belongs. "
         "Rooms sharing the same story identifier are considered part of the same "
@@ -365,11 +365,11 @@ class ModelProperties(BaseModel):
         "ModelProperties"
     )
 
-    energy: ModelEnergyProperties = Field(default=None)
+    energy: ModelEnergyProperties | None = Field(default=None)
 
-    radiance: ModelRadianceProperties = Field(default=None)
+    radiance: ModelRadianceProperties | None = Field(default=None)
 
-    doe2: ModelDoe2Properties = Field(default=None)
+    doe2: ModelDoe2Properties | None = Field(default=None)
 
 
 class Model(IDdBaseModel):
@@ -381,34 +381,36 @@ class Model(IDdBaseModel):
         description="Text string for the current version of the schema.",
     )
 
-    rooms: List[Room] = Field(default=None, description="A list of Rooms in the model.")
+    rooms: List[Room] | None = Field(
+        default=None, description="A list of Rooms in the model."
+    )
 
-    orphaned_faces: List[Face] = Field(
+    orphaned_faces: List[Face] | None = Field(
         default=None,
         description="A list of Faces in the model that lack a parent Room. Note that "
         "orphaned Faces are not acceptable for Models that are to be exported "
         "for energy simulation.",
     )
 
-    orphaned_shades: List[Shade] = Field(
+    orphaned_shades: List[Shade] | None = Field(
         default=None, description="A list of Shades in the model that lack a parent."
     )
 
-    orphaned_apertures: List[Aperture] = Field(
+    orphaned_apertures: List[Aperture] | None = Field(
         default=None,
         description="A list of Apertures in the model that lack a parent Face. "
         "Note that orphaned Apertures are not acceptable for Models that are "
         "to be exported for energy simulation.",
     )
 
-    orphaned_doors: List[Door] = Field(
+    orphaned_doors: List[Door] | None = Field(
         default=None,
         description="A list of Doors in the model that lack a parent Face. "
         "Note that orphaned Doors are not acceptable for Models that are "
         "to be exported for energy simulation.",
     )
 
-    shade_meshes: List[ShadeMesh] = Field(
+    shade_meshes: List[ShadeMesh] | None = Field(
         default=None, description="A list of ShadeMesh in the model."
     )
 
