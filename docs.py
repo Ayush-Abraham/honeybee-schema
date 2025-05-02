@@ -1,7 +1,6 @@
 """generate openapi docs."""
 
-# from pkg_resources import get_distribution
-from importlib.metadata import distribution
+from pkg_resources import get_distribution
 from pydantic_openapi_helper.core import get_openapi
 from pydantic_openapi_helper.inheritance import class_mapper
 from honeybee_schema.model import Model
@@ -22,7 +21,8 @@ args = parser.parse_args()
 if args.version:
     VERSION = args.version.replace("v", "")
 else:
-    VERSION = ".".join(distribution("honeybee_schema").version.split(".")[:3])
+    # VERSION = ".".join(get_distribution("honeybee_schema").version.split(".")[:3])
+    VERSION = "1.59.0-pydantic2"
 
 info = {
     "description": "",
