@@ -345,11 +345,11 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_number_of_values(cls, values):
+    def check_number_of_values(self):
         "Ensure an acceptable number of schedule values."
-        vals = values.get("values")
-        timestep = values.get("timestep")
-        start_date = values.get("start_date")
+        vals = self.values
+        timestep = self.timestep
+        start_date = self.start_date
         if len(vals) < 24 * timestep:
             raise ValueError(
                 "Number of schedule values must be for at least one day, "
@@ -369,7 +369,7 @@ class ScheduleFixedIntervalAbridged(IDdEnergyBaseModel):
             raise ValueError(
                 "Number of schedule values must be for a whole number of days."
             )
-        return values
+        return self
 
 
 class ScheduleFixedInterval(ScheduleFixedIntervalAbridged):

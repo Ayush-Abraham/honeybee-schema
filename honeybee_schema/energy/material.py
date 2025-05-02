@@ -316,10 +316,10 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         " for clear glass.",
     )
 
-    solar_reflectance_back: Union[Autocalculate, float] = Field(
+    solar_reflectance_back: Union[
+        Autocalculate, Annotated[float, Field(ge=0, le=1)]
+    ] = Field(
         default=Autocalculate(),
-        ge=0,
-        le=1,
         description="Reflectance of solar radiation off of the back side of the glass at"
         " normal incidence, averaged over the solar spectrum.",
     )
@@ -340,10 +340,10 @@ class EnergyWindowMaterialGlazing(IDdEnergyBaseModel):
         " normal incidence. Default: 0.075 for clear glass.",
     )
 
-    visible_reflectance_back: Union[Autocalculate, float] = Field(
+    visible_reflectance_back: Union[
+        Autocalculate, Annotated[float, Field(ge=0, le=1)]
+    ] = Field(
         default=Autocalculate(),
-        ge=0,
-        le=1,
         description="Reflectance of visible light off of the back side of the glass at"
         " normal incidence averaged over the solar spectrum and weighted by the response"
         " of the human eye.",

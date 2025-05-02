@@ -27,13 +27,13 @@ class SimulationOutput(NoExtraBaseModel):
 
     reporting_frequency: ReportingFrequency = ReportingFrequency.hourly
 
-    outputs: List[str] = Field(
+    outputs: List[str] | None = Field(
         default=None,
         description="A list of EnergyPlus output names as strings, which are requested "
         "from the simulation.",
     )
 
-    summary_reports: List[str] = Field(
+    summary_reports: List[str] | None = Field(
         default=None,
         description="A list of EnergyPlus summary report names as strings.",
     )
@@ -218,14 +218,16 @@ class RunPeriod(DatedBaseModel):
         description="Text for the day of the week on which the simulation starts.",
     )
 
-    holidays: List[Annotated[List[int], Field(min_length=2, max_length=2)]] = Field(
-        default=None,
-        description="A list of lists where each sub-list consists of two integers "
-        "for [month, day], representing a date which is a holiday within the "
-        "simulation. If None, no holidays are applied.",
+    holidays: List[Annotated[List[int], Field(min_length=2, max_length=2)]] | None = (
+        Field(
+            default=None,
+            description="A list of lists where each sub-list consists of two integers "
+            "for [month, day], representing a date which is a holiday within the "
+            "simulation. If None, no holidays are applied.",
+        )
     )
 
-    daylight_saving_time: DaylightSavingTime = Field(
+    daylight_saving_time: DaylightSavingTime | None = Field(
         default=None,
         description="A DaylightSavingTime to dictate the start and end dates "
         "of daylight saving time. If None, no daylight saving time is applied "
@@ -238,18 +240,18 @@ class RunPeriod(DatedBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_dates(cls, values):
+    def check_dates(self):
         """Check that all of the input dates are valid."""
-        start_date = values.get("start_date")
-        end_date = values.get("end_date")
-        holidays = values.get("holidays")
-        leap_year = values.get("leap_year")
-        cls.check_date(start_date, leap_year)
-        cls.check_date(end_date, leap_year)
+        start_date = self.start_date
+        end_date = self.end_date
+        holidays = self.holidays
+        leap_year = self.leap_year
+        self.check_date(start_date, leap_year)
+        self.check_date(end_date, leap_year)
         if holidays is not None:
             for hol in holidays:
-                cls.check_date(hol, leap_year)
-        return values
+                self.check_date(hol, leap_year)
+        return self
 
 
 class EfficiencyStandards(str, Enum):
@@ -316,7 +318,7 @@ class SizingParameter(NoExtraBaseModel):
         "SizingParameter"
     )
 
-    design_days: List[DesignDay] = Field(
+    design_days: List[DesignDay] | None = Field(
         default=None,
         description="A list of DesignDays that represent the criteria for which "
         "the HVAC systems will be sized.",
@@ -336,7 +338,7 @@ class SizingParameter(NoExtraBaseModel):
         " for each zone in order to size the heating system.",
     )
 
-    efficiency_standard: EfficiencyStandards = Field(
+    efficiency_standard: EfficiencyStandards | None = Field(
         default=None,
         description="Text to specify the efficiency standard, which will "
         "automatically set the efficiencies of all HVAC equipment when provided. "
@@ -348,14 +350,14 @@ class SizingParameter(NoExtraBaseModel):
         "HVAC specification with a particular standard.",
     )
 
-    climate_zone: ClimateZones = Field(
+    climate_zone: ClimateZones | None = Field(
         default=None,
         description="Text indicating the ASHRAE climate zone to be used with the "
         "efficiency_standard. When unspecified, the climate zone will be inferred from "
         "the design days on this sizing parameter object.",
     )
 
-    building_type: str = Field(
+    building_type: str | None = Field(
         default=None,
         description="Text for the building type to be used in the efficiency_standard. "
         "If the type is not recognized or is None, it will be assumed that the building "
@@ -394,13 +396,13 @@ class SimulationParameter(NoExtraBaseModel):
         "SimulationParameter"
     )
 
-    output: SimulationOutput = Field(
+    output: SimulationOutput | None = Field(
         default=None,
         description="A SimulationOutput that lists the desired outputs from the "
         "simulation and the format in which to report them.",
     )
 
-    run_period: RunPeriod = Field(
+    run_period: RunPeriod | None = Field(
         default=None,
         description="A RunPeriod to describe the time period over which to "
         "run the simulation.",
@@ -421,19 +423,19 @@ class SimulationParameter(NoExtraBaseModel):
             '"{}" is not a valid timestep. Choose from {}'.format(v, valid_timesteps)
         )
 
-    simulation_control: SimulationControl = Field(
+    simulation_control: SimulationControl | None = Field(
         default=None,
         description="A SimulationControl object that describes which types of "
         "calculations to run.",
     )
 
-    shadow_calculation: ShadowCalculation = Field(
+    shadow_calculation: ShadowCalculation | None = Field(
         default=None,
         description="A ShadowCalculation object describing settings for the "
         "EnergyPlus Shadow Calculation.",
     )
 
-    sizing_parameter: SizingParameter = Field(
+    sizing_parameter: SizingParameter | None = Field(
         default=None,
         description="A SizingParameter object with criteria for sizing the "
         "heating and cooling system.",

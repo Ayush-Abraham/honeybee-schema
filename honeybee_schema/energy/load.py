@@ -29,7 +29,7 @@ class PeopleAbridged(IDdEnergyBaseModel):
         "occupancy profile.",
     )
 
-    activity_schedule: str = Field(
+    activity_schedule: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -49,24 +49,22 @@ class PeopleAbridged(IDdEnergyBaseModel):
         "(Default: 0.3).",
     )
 
-    latent_fraction: Union[Autocalculate, float] = Field(
+    latent_fraction: Union[Autocalculate, Annotated[float, Field(ge=0, le=1)]] = Field(
         Autocalculate(),
-        ge=0,
-        le=1,
         description="Number for the latent fraction of heat gain due to people or "
         "an Autocalculate object.",
     )
 
     @model_validator(mode="after")
-    def check_sum_fractions(cls, values):
+    def check_sum_fractions(self):
         "Ensure sum is less than 1."
-        rad = values.get("radiant_fraction")
-        latent = values.get("latent_fraction")
+        rad = self.radiant_fraction
+        latent = self.latent_fraction
         if latent is not None and isinstance(latent, float):
             assert rad + latent <= 1, (
                 "Sum of radiant and latent fractions cannot be greater than 1."
             )
-        return values
+        return self
 
 
 class People(PeopleAbridged):
@@ -80,7 +78,7 @@ class People(PeopleAbridged):
         "occupancy profile.",
     )
 
-    activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    activity_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] | None = Field(
         default=None,
         description="A schedule for the activity of the occupants over the "
         "course of the year. The type of this schedule should be ActivityLevel "
@@ -145,15 +143,15 @@ class LightingAbridged(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_sum_fractions(cls, values):
+    def check_sum_fractions(self):
         "Ensure sum is less than 1."
-        return_air = values.get("return_air_fraction")
-        vis = values.get("visible_fraction")
-        rad = values.get("radiant_fraction")
+        return_air = self.return_air_fraction
+        vis = self.visible_fraction
+        rad = self.radiant_fraction
         assert sum((return_air, vis, rad)) <= 1, (
             "Sum of visible, radiant, and return air fractions cannot be greater than 1."
         )
-        return values
+        return self
 
 
 class Lighting(LightingAbridged):
@@ -208,15 +206,15 @@ class _EquipmentBase(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_sum_fractions(cls, values):
+    def check_sum_fractions(self):
         "Ensure sum is less than 1."
-        rad = values.get("radiant_fraction")
-        latent = values.get("latent_fraction")
-        lost = values.get("lost_fraction")
+        rad = self.radiant_fraction
+        latent = self.latent_fraction
+        lost = self.lost_fraction
         assert sum((rad, latent, lost)) <= 1, (
             "Sum of radiant, latent, and lost fractions cannot be greater than 1."
         )
-        return values
+        return self
 
 
 class ElectricEquipmentAbridged(_EquipmentBase):
@@ -306,14 +304,14 @@ class ServiceHotWaterAbridged(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_sum_fractions(cls, values):
+    def check_sum_fractions(self):
         "Ensure sum is less than 1."
-        sens = values.get("sensible_fraction")
-        lat = values.get("latent_fraction")
+        sens = self.sensible_fraction
+        lat = self.latent_fraction
         assert sum((sens, lat)) <= 1, (
             "Sum of sensible and latent fractions cannot be greater than 1."
         )
-        return values
+        return self
 
 
 class ServiceHotWater(ServiceHotWaterAbridged):
@@ -399,7 +397,7 @@ class VentilationAbridged(IDdEnergyBaseModel):
         0, ge=0, description="Intensity of ventilation in m3/s for the entire Room."
     )
 
-    schedule: str = Field(
+    schedule: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -414,7 +412,7 @@ class VentilationAbridged(IDdEnergyBaseModel):
 class Ventilation(VentilationAbridged):
     type: Annotated[str, StringConstraints(pattern="^Ventilation$")] = "Ventilation"
 
-    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    schedule: Union[ScheduleRuleset, ScheduleFixedInterval] | None = Field(
         default=None,
         description="Schedule for the ventilation over the course of "
         "the year. The type of this schedule should be Fractional and the "
@@ -447,7 +445,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
         "this schedule should be temperature in [C].",
     )
 
-    humidifying_schedule: str = Field(
+    humidifying_schedule: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -455,7 +453,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
         "The values in this schedule should be in [%].",
     )
 
-    dehumidifying_schedule: str = Field(
+    dehumidifying_schedule: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
@@ -484,10 +482,10 @@ class SetpointAbridged(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_both_humid_sch(cls, values):
+    def check_both_humid_sch(self):
         "Ensure that the other humidity schedule is included when one is."
-        humid = values.get("humidifying_schedule")
-        dehumid = values.get("dehumidifying_schedule")
+        humid = self.humidifying_schedule
+        dehumid = self.dehumidifying_schedule
         if humid is not None:
             assert dehumid is not None, (
                 "When humidifying_schedule is specified, "
@@ -498,7 +496,7 @@ class SetpointAbridged(IDdEnergyBaseModel):
                 "When dehumidifying_schedule is specified, "
                 "humidifying_schedule must also be specified."
             )
-        return values
+        return self
 
 
 class Setpoint(SetpointAbridged):
@@ -518,16 +516,18 @@ class Setpoint(SetpointAbridged):
         "this schedule should be temperature in [C].",
     )
 
-    humidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
+    humidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] | None = Field(
         default=None,
         description="Schedule for the humidification setpoint. The values "
         "in this schedule should be in [%].",
     )
 
-    dehumidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] = Field(
-        default=None,
-        description="Schedule for the dehumidification setpoint. The values "
-        "in this schedule should be in [%].",
+    dehumidifying_schedule: Union[ScheduleRuleset, ScheduleFixedInterval] | None = (
+        Field(
+            default=None,
+            description="Schedule for the dehumidification setpoint. The values "
+            "in this schedule should be in [%].",
+        )
     )
 
 
@@ -611,12 +611,12 @@ class ProcessAbridged(IDdEnergyBaseModel):
     )
 
     @model_validator(mode="after")
-    def check_sum_fractions(cls, values):
+    def check_sum_fractions(self):
         "Ensure sum is less than 1."
-        rad = values.get("radiant_fraction")
-        latent = values.get("latent_fraction")
-        lost = values.get("lost_fraction")
+        rad = self.radiant_fraction
+        latent = self.latent_fraction
+        lost = self.lost_fraction
         assert sum((rad, latent, lost)) <= 1, (
             "Sum of radiant, latent, and lost fractions cannot be greater than 1."
         )
-        return values
+        return self

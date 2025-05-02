@@ -11,7 +11,7 @@ from typing_extensions import Annotated
 class Outdoors(NoExtraBaseModel):
     # type: constr(regex='^Outdoors$') = 'Outdoors'
     type: Annotated[str, StringConstraints(pattern="^Outdoors$")] = "Outdoors"
-    type: str = 'Outdoors'
+    type: str = "Outdoors"
 
     sun_exposure: bool = Field(
         True, description="A boolean noting whether the boundary is exposed to sun."
@@ -21,10 +21,8 @@ class Outdoors(NoExtraBaseModel):
         True, description="A boolean noting whether the boundary is exposed to wind."
     )
 
-    view_factor: Union[Autocalculate, float] = Field(
+    view_factor: Union[Autocalculate, Annotated[float, Field(ge=0, le=1)]] = Field(
         Autocalculate(),
-        ge=0,
-        le=1,
         description="A number for the view factor to the ground. This can also be "
         "an Autocalculate object to have the view factor automatically calculated.",
     )
@@ -57,7 +55,9 @@ class Adiabatic(NoExtraBaseModel):
 
 
 class OtherSideTemperature(NoExtraBaseModel):
-    type: Annotated[str, StringConstraints(pattern="^OtherSideTemperature$")] = "OtherSideTemperature"
+    type: Annotated[str, StringConstraints(pattern="^OtherSideTemperature$")] = (
+        "OtherSideTemperature"
+    )
 
     heat_transfer_coefficient: float = Field(
         0,

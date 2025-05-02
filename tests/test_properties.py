@@ -36,4 +36,7 @@ def test_face_radiance_properties():
 
 def test_model_energy_properties_office():
     file_path = os.path.join(target_folder_prop, "model_energy_properties_office.json")
-    ModelEnergyProperties.parse_file(file_path)
+    # ModelEnergyProperties.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    ModelEnergyProperties.model_validate_json(json_data)

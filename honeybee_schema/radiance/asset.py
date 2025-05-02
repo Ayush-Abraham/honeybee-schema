@@ -12,7 +12,7 @@ from typing_extensions import Annotated
 class _RadianceAsset(IDdRadianceBaseModel):
     """Hidden base class for all Radiance Assets."""
 
-    room_identifier: str = Field(
+    room_identifier: str | None = Field(
         None,
         pattern=r"^[.A-Za-z0-9_-]+$",
         min_length=1,
@@ -23,7 +23,7 @@ class _RadianceAsset(IDdRadianceBaseModel):
         "the grid will be run with all aperture groups in the model.",
     )
 
-    light_path: List[List[str]] = Field(
+    light_path: List[List[str]] | None = Field(
         None,
         description="Get or set a list of lists for the light path from the object to "
         "the sky. Each sub-list contains identifiers of aperture groups through which "
@@ -62,7 +62,7 @@ class SensorGrid(_RadianceAsset):
         ..., description="A list of sensors that belong to the grid."
     )
 
-    mesh: Mesh3D = Field(
+    mesh: Mesh3D | None = Field(
         None,
         description="An optional Mesh3D that aligns with the sensors and can be "
         "used for visualization of the grid. Note that the number of sensors in "
@@ -70,7 +70,7 @@ class SensorGrid(_RadianceAsset):
         "the Mesh3D.",
     )
 
-    base_geometry: List[Face3D] = Field(
+    base_geometry: List[Face3D] | None = Field(
         None,
         description="An optional array of Face3D used to represent the grid. "
         "There are no restrictions on how this property relates to the sensors and it "
@@ -78,7 +78,7 @@ class SensorGrid(_RadianceAsset):
         "of sensors or the mesh is too large to be practically visualized.",
     )
 
-    group_identifier: str = Field(
+    group_identifier: str | None = Field(
         default=None,
         description="An optional string to note the sensor grid group ' \
             'to which the sensor is a part of. Grids sharing the same ' \
@@ -144,7 +144,7 @@ class View(_RadianceAsset):
         "projection, this is the view width in world coordinates.",
     )
 
-    shift: float = Field(
+    shift: float | None = Field(
         None,
         description="The view shift (-vs). This is the amount the actual "
         "image will be shifted to the right of the specified view. This "
@@ -155,7 +155,7 @@ class View(_RadianceAsset):
         "as well.",
     )
 
-    lift: float = Field(
+    lift: float | None = Field(
         None,
         description="The view lift (-vl). This is the amount the actual "
         "image will be lifted up from the specified view. This "
@@ -166,7 +166,7 @@ class View(_RadianceAsset):
         "as well.",
     )
 
-    fore_clip: float = Field(
+    fore_clip: float | None = Field(
         None,
         description="View fore clip (-vo) at a distance from the view point."
         "The plane will be perpendicular to the view direction for perspective "
@@ -175,7 +175,7 @@ class View(_RadianceAsset):
         "Objects in front of this imaginary surface will not be visible.",
     )
 
-    aft_clip: float = Field(
+    aft_clip: float | None = Field(
         None,
         description="View aft clip (-va) at a distance from the view point."
         "Like the view fore plane, it will be perpendicular to the view "
@@ -184,7 +184,7 @@ class View(_RadianceAsset):
         "centered on the view point with radius val.",
     )
 
-    group_identifier: str = Field(
+    group_identifier: str | None = Field(
         default=None,
         description="An optional string to note the view group ' \
             'to which the sensor is a part of. Views sharing the same ' \

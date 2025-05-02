@@ -5,24 +5,36 @@ import json
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'samples', 'radiance_asset')
+target_folder = os.path.join(root, "samples", "radiance_asset")
 
 
 def test_sensor_grid_simple():
-    file_path = os.path.join(target_folder, 'sensor_grid_simple.json')
-    SensorGrid.parse_file(file_path)
+    file_path = os.path.join(target_folder, "sensor_grid_simple.json")
+    # SensorGrid.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    SensorGrid.model_validate_json(json_data)
 
 
 def test_sensor_grid_detailed():
-    file_path = os.path.join(target_folder, 'sensor_grid_detailed.json')
-    SensorGrid.parse_file(file_path)
+    file_path = os.path.join(target_folder, "sensor_grid_detailed.json")
+    # SensorGrid.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    SensorGrid.model_validate_json(json_data)
 
 
 def test_view_perspective():
-    file_path = os.path.join(target_folder, 'view_perspective.json')
-    View.parse_file(file_path)
+    file_path = os.path.join(target_folder, "view_perspective.json")
+    # View.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    View.model_validate_json(json_data)
 
 
 def test_view_parallel():
-    file_path = os.path.join(target_folder, 'view_parallel.json')
-    View.parse_file(file_path)
+    file_path = os.path.join(target_folder, "view_parallel.json")
+    # View.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    View.model_validate_json(json_data)

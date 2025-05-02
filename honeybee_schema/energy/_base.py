@@ -21,7 +21,7 @@ class EnergyBaseModel(NoExtraBaseModel):
         "ASCII characters and exclude (, ; ! \\n \\t).",
     )
 
-    display_name: str = Field(
+    display_name: str | None = Field(
         default=None,
         description="Display name of the object with no character restrictions.",
     )
@@ -30,7 +30,7 @@ class EnergyBaseModel(NoExtraBaseModel):
 class IDdEnergyBaseModel(EnergyBaseModel):
     """Base class for all objects requiring an EnergyPlus identifier and user_data."""
 
-    user_data: dict = Field(
+    user_data: dict | None = Field(
         default=None,
         description="Optional dictionary of user data associated with the object."
         "All keys and values of this dictionary should be of a standard data "

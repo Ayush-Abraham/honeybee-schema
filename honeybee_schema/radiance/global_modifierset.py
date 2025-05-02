@@ -59,19 +59,19 @@ class GlobalModifierSet(NoExtraBaseModel):
     modifiers: List[Union[Plastic, Glass, Trans]] = Field(
         default=_MODIFIERS,
         description="Global Honeybee Radiance modifiers.",
-        readOnly=True,
+        frozen=True,
     )
 
     wall_set: WallModifierSetAbridged = Field(
         default=WallModifierSetAbridged.model_validate(_MOD_SET["wall_set"]),
         description="Global Honeybee WallModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     floor_set: FloorModifierSetAbridged = Field(
         default=FloorModifierSetAbridged.model_validate(_MOD_SET["floor_set"]),
         description="Global Honeybee FloorModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     roof_ceiling_set: RoofCeilingModifierSetAbridged = Field(
@@ -79,35 +79,35 @@ class GlobalModifierSet(NoExtraBaseModel):
             _MOD_SET["roof_ceiling_set"]
         ),
         description="Global Honeybee RoofCeilingModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     aperture_set: ApertureModifierSetAbridged = Field(
         default=ApertureModifierSetAbridged.model_validate(_MOD_SET["aperture_set"]),
         description="Global Honeybee ApertureModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     door_set: DoorModifierSetAbridged = Field(
         default=DoorModifierSetAbridged.model_validate(_MOD_SET["door_set"]),
         description="Global Honeybee DoorModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     shade_set: ShadeModifierSetAbridged = Field(
         default=ShadeModifierSetAbridged.model_validate(_MOD_SET["shade_set"]),
         description="Global Honeybee ShadeModifierSet.",
-        readOnly=True,
+        frozen=True,
     )
 
     air_boundary_modifier: str = Field(
         default=_MOD_SET["air_boundary_modifier"],
         description="Global Honeybee Modifier for AirBoundary Faces.",
-        readOnly=True,
+        frozen=True,
     )
 
     context_modifier: str = Field(
         default="generic_context_0.20",
         description="Global Honeybee Modifier for context Shades.",
-        readOnly=True,
+        frozen=True,
     )

@@ -9,6 +9,7 @@ class NoExtraBaseModel(BaseModel):
     This effectively includes all objects except for the Properties classes
     that are assigned to geometry objects.
     """
+
     model_config = ConfigDict(extra="forbid")
 
 
@@ -27,12 +28,12 @@ class IDdBaseModel(NoExtraBaseModel):
         "any spaces or special characters.",
     )
 
-    display_name: str = Field(
+    display_name: str | None = Field(
         default=None,
         description="Display name of the object with no character restrictions.",
     )
 
-    user_data: dict = Field(
+    user_data: dict | None = Field(
         default=None,
         description="Optional dictionary of user data associated with the object."
         "All keys and values of this dictionary should be of a standard data "

@@ -3,14 +3,20 @@ import os
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'samples', 'simulation_parameter')
+target_folder = os.path.join(root, "samples", "simulation_parameter")
 
 
 def test_detailed_simulation_par():
-    file_path = os.path.join(target_folder, 'simulation_par_detailed.json')
-    SimulationParameter.parse_file(file_path)
+    file_path = os.path.join(target_folder, "simulation_par_detailed.json")
+    # SimulationParameter.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    SimulationParameter.model_validate_json(json_data)
 
 
 def test_simple_simulation_par():
-    file_path = os.path.join(target_folder, 'simulation_par_simple.json')
-    SimulationParameter.parse_file(file_path)
+    file_path = os.path.join(target_folder, "simulation_par_simple.json")
+    # SimulationParameter.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    SimulationParameter.model_validate_json(json_data)
