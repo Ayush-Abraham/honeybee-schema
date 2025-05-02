@@ -1,14 +1,15 @@
 """Schemas for objects that generate electricity."""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 
 from .._base import NoExtraBaseModel
 from ._base import EnergyBaseModel
 from enum import Enum
+from typing_extensions import Annotated
 
 
 class ElectricLoadCenter(NoExtraBaseModel):
 
-    type: constr(regex='^ElectricLoadCenter$') = 'ElectricLoadCenter'
+    type: Annotated[str, StringConstraints(pattern='^ElectricLoadCenter$')] = 'ElectricLoadCenter'
 
     inverter_efficiency: float = Field(
         0.96,
@@ -58,7 +59,7 @@ class MountingType(str, Enum):
 
 class PVProperties(EnergyBaseModel):
 
-    type: constr(regex='^PVProperties$') = 'PVProperties'
+    type: Annotated[str, StringConstraints(pattern='^PVProperties$')] = 'PVProperties'
 
     rated_efficiency: float = Field(
         0.15,

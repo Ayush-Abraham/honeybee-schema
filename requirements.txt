@@ -1,2 +1,3 @@
-pydantic-openapi-helper>=0.2.10
+# pydantic-openapi-helper>=0.2.10
+pydantic-openapi-helper @ git+https://github.com/Ayush-Abraham/pydantic-openapi-helper.git
 honeybee-standards==2.0.7

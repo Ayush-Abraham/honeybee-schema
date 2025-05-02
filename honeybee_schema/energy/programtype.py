@@ -1,5 +1,5 @@
 """Programtype Schema"""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 
 from ._base import IDdEnergyBaseModel
 from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
@@ -7,11 +7,12 @@ from .load import PeopleAbridged, LightingAbridged, ElectricEquipmentAbridged, \
     InfiltrationAbridged, VentilationAbridged, SetpointAbridged, \
     People, Lighting, ElectricEquipment, GasEquipment, ServiceHotWater, \
     Infiltration, Ventilation, Setpoint
+from typing_extensions import Annotated
 
 
 class ProgramTypeAbridged(IDdEnergyBaseModel):
 
-    type: constr(regex='^ProgramTypeAbridged$') = 'ProgramTypeAbridged'
+    type: Annotated[str, StringConstraints(pattern='^ProgramTypeAbridged$')] = 'ProgramTypeAbridged'
 
     people: PeopleAbridged = Field(
         default=None,
@@ -65,7 +66,7 @@ class ProgramTypeAbridged(IDdEnergyBaseModel):
 
 class ProgramType(ProgramTypeAbridged):
 
-    type: constr(regex='^ProgramType$') = 'ProgramType'
+    type: Annotated[str, StringConstraints(pattern='^ProgramType$')] = 'ProgramType'
 
     people: People = Field(
         default=None,

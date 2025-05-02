@@ -3,9 +3,12 @@ import os
 
 # target folder where all of the samples live
 root = os.path.dirname(os.path.dirname(__file__))
-target_folder = os.path.join(root, 'samples', 'daylight')
+target_folder = os.path.join(root, "samples", "daylight")
 
 
 def test_daylight_control():
-    file_path = os.path.join(target_folder, 'daylight_control.json')
-    DaylightingControl.parse_file(file_path)
+    file_path = os.path.join(target_folder, "daylight_control.json")
+    # DaylightingControl.parse_file(file_path)
+    with open(file_path) as file:
+        json_data = file.read()
+    DaylightingControl.model_validate_json(json_data)

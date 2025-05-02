@@ -1,5 +1,5 @@
 """Model energy properties."""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 from typing import List, Union
 
 from .._base import NoExtraBaseModel
@@ -33,11 +33,12 @@ from .hvac.heatcool import FCU, WSHP, VRF, Baseboard, EvaporativeCooler, Residen
 from .hvac.detailed import DetailedHVAC
 from .shw import SHWSystem
 from .generator import PVProperties, ElectricLoadCenter
+from typing_extensions import Annotated
 
 
 class ShadeMeshEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^ShadeMeshEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ShadeMeshEnergyPropertiesAbridged$')] = \
         'ShadeMeshEnergyPropertiesAbridged'
 
     construction: str = Field(
@@ -63,7 +64,7 @@ class ShadeMeshEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^ShadeEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ShadeEnergyPropertiesAbridged$')] = \
         'ShadeEnergyPropertiesAbridged'
 
     construction: str = Field(
@@ -97,7 +98,7 @@ class ShadeEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class DoorEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^DoorEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^DoorEnergyPropertiesAbridged$')] = \
         'DoorEnergyPropertiesAbridged'
 
     construction: str = Field(
@@ -120,7 +121,7 @@ class DoorEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^ApertureEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ApertureEnergyPropertiesAbridged$')] = \
         'ApertureEnergyPropertiesAbridged'
 
     construction: str = Field(
@@ -141,7 +142,7 @@ class ApertureEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^FaceEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^FaceEnergyPropertiesAbridged$')] = \
         'FaceEnergyPropertiesAbridged'
 
     construction: str = Field(
@@ -162,7 +163,7 @@ class FaceEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
 
-    type: constr(regex='^RoomEnergyPropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^RoomEnergyPropertiesAbridged$')] = \
         'RoomEnergyPropertiesAbridged'
 
     construction_set: str = Field(
@@ -288,7 +289,7 @@ class RoomEnergyPropertiesAbridged(NoExtraBaseModel):
 
 class ModelEnergyProperties(NoExtraBaseModel):
 
-    type: constr(regex='^ModelEnergyProperties$') = \
+    type: Annotated[str, StringConstraints(pattern='^ModelEnergyProperties$')] = \
         'ModelEnergyProperties'
 
     global_construction_set: GlobalConstructionSet = Field(

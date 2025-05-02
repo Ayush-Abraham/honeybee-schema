@@ -1,12 +1,13 @@
 """Detailed HVAC system schema defined using Ironbug."""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 from .._base import IDdEnergyBaseModel
+from typing_extensions import Annotated
 
 
 class DetailedHVAC(IDdEnergyBaseModel):
     """Detailed HVAC system object defined using IronBug or OpenStudio .NET bindings."""
 
-    type: constr(regex='^DetailedHVAC$') = 'DetailedHVAC'
+    type: Annotated[str, StringConstraints(pattern='^DetailedHVAC$')] = 'DetailedHVAC'
 
     specification: dict = Field(
         ...,

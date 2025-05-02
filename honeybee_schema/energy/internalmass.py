@@ -1,12 +1,13 @@
 """Programtype Schema"""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 
 from ._base import IDdEnergyBaseModel
+from typing_extensions import Annotated
 
 
 class InternalMassAbridged(IDdEnergyBaseModel):
 
-    type: constr(regex='^InternalMassAbridged$') = 'InternalMassAbridged'
+    type: Annotated[str, StringConstraints(pattern='^InternalMassAbridged$')] = 'InternalMassAbridged'
 
     construction: str = Field(
         ...,

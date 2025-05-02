@@ -1,5 +1,5 @@
 """Properties Schema"""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 from typing import List, Union
 
 from .modifier import _REFERENCE_UNION_MODIFIERS
@@ -10,6 +10,7 @@ from .._base import NoExtraBaseModel
 
 from honeybee_schema.radiance.state import RadianceShadeStateAbridged, \
     RadianceSubFaceStateAbridged
+from typing_extensions import Annotated
 
 
 class _PropertiesBaseAbridged(NoExtraBaseModel):
@@ -31,14 +32,14 @@ class _PropertiesBaseAbridged(NoExtraBaseModel):
 class ShadeMeshRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee ShadeMesh Abridged."""
 
-    type: constr(regex='^ShadeMeshRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ShadeMeshRadiancePropertiesAbridged$')] = \
         'ShadeMeshRadiancePropertiesAbridged'
 
 
 class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Aperture Abridged."""
 
-    type: constr(regex='^ApertureRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ApertureRadiancePropertiesAbridged$')] = \
         'ApertureRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
@@ -58,7 +59,7 @@ class ApertureRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Door Abridged."""
 
-    type: constr(regex='^DoorRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^DoorRadiancePropertiesAbridged$')] = \
         'DoorRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
@@ -78,14 +79,14 @@ class DoorRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class FaceRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Face Abridged."""
 
-    type: constr(regex='^FaceRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^FaceRadiancePropertiesAbridged$')] = \
         'FaceRadiancePropertiesAbridged'
 
 
 class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
     """Radiance Properties for Honeybee Shade Abridged."""
 
-    type: constr(regex='^ShadeRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^ShadeRadiancePropertiesAbridged$')] = \
         'ShadeRadiancePropertiesAbridged'
 
     dynamic_group_identifier: str = Field(
@@ -105,7 +106,7 @@ class ShadeRadiancePropertiesAbridged(_PropertiesBaseAbridged):
 class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
     """Abridged Radiance Properties for Honeybee Room."""
 
-    type: constr(regex='^RoomRadiancePropertiesAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^RoomRadiancePropertiesAbridged$')] = \
         'RoomRadiancePropertiesAbridged'
 
     modifier_set: str = Field(
@@ -118,7 +119,7 @@ class RoomRadiancePropertiesAbridged(NoExtraBaseModel):
 class ModelRadianceProperties(NoExtraBaseModel):
     """Radiance Properties for Honeybee Model."""
 
-    type: constr(regex='^ModelRadianceProperties$') = 'ModelRadianceProperties'
+    type: Annotated[str, StringConstraints(pattern='^ModelRadianceProperties$')] = 'ModelRadianceProperties'
 
     global_modifier_set: GlobalModifierSet = Field(
         default=GlobalModifierSet(),

@@ -1,13 +1,14 @@
 """Geometry objects for model."""
-from pydantic import Field, constr, conlist, conint
+from pydantic import StringConstraints, Field
 from typing import List
 from ._base import NoExtraBaseModel
+from typing_extensions import Annotated
 
 
 class Point3D(NoExtraBaseModel):
     """A point object in 3D space."""
 
-    type: constr(regex='^Point3D$') = 'Point3D'
+    type: Annotated[str, StringConstraints(pattern='^Point3D$')] = 'Point3D'
 
     x: float = Field(
         ...,
@@ -28,63 +29,63 @@ class Point3D(NoExtraBaseModel):
 class LineSegment3D(NoExtraBaseModel):
     """A single line segment face in 3D space."""
 
-    type: constr(regex='^LineSegment3D$') = 'LineSegment3D'
+    type: Annotated[str, StringConstraints(pattern='^LineSegment3D$')] = 'LineSegment3D'
 
     p: List[float] = Field(
         ...,
         description="Line segment base point as 3 (x, y, z) values.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     v: List[float] = Field(
         ...,
         description="Line segment direction vector as 3 (x, y, z) values.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
 
 class Plane(NoExtraBaseModel):
 
-    type: constr(regex='^Plane$') = 'Plane'
+    type: Annotated[str, StringConstraints(pattern='^Plane$')] = 'Plane'
 
     n: List[float] = Field(
         ...,
         description="Plane normal as 3 (x, y, z) values.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     o: List[float] = Field(
         ...,
         description="Plane origin as 3 (x, y, z) values",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
     x: List[float] = Field(
         default=None,
         description="Plane x-axis as 3 (x, y, z) values. If None, it is autocalculated.",
-        min_items=3,
-        max_items=3
+        min_length=3,
+        max_length=3
     )
 
 
 class Face3D(NoExtraBaseModel):
     """A single planar face in 3D space."""
 
-    type: constr(regex='^Face3D$') = 'Face3D'
+    type: Annotated[str, StringConstraints(pattern='^Face3D$')] = 'Face3D'
 
-    boundary: List[conlist(float, min_items=3, max_items=3)] = Field(
+    boundary: List[Annotated[List[float], Field(min_length=3, max_length=3)]] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description='A list of points representing the outer boundary vertices of '
         'the face. The list should include at least 3 points and each point '
         'should be a list of 3 (x, y, z) values.'
     )
 
-    holes: List[conlist(conlist(float, min_items=3, max_items=3), min_items=3)] = Field(
+    holes: List[Annotated[List[Annotated[List[float], Field(min_length=3, max_length=3)]], Field(min_length=3)]] = Field(
         default=None,
         description='Optional list of lists with one list for each hole in the face.'
         'Each hole should be a list of at least 3 points and each point a list '
@@ -102,7 +103,7 @@ class Face3D(NoExtraBaseModel):
 class Color(NoExtraBaseModel):
     """A RGB color."""
 
-    type: constr(regex='^Color$') = 'Color'
+    type: Annotated[str, StringConstraints(pattern='^Color$')] = 'Color'
 
     r: int = Field(
         ...,
@@ -137,19 +138,19 @@ class Color(NoExtraBaseModel):
 class Mesh3D(NoExtraBaseModel):
     """A mesh in 3D space."""
 
-    type: constr(regex='^Mesh3D$') = 'Mesh3D'
+    type: Annotated[str, StringConstraints(pattern='^Mesh3D$')] = 'Mesh3D'
 
-    vertices: List[conlist(float, min_items=3, max_items=3)] = Field(
+    vertices: List[Annotated[List[float], Field(min_length=3, max_length=3)]] = Field(
         ...,
-        min_items=3,
+        min_length=3,
         description='A list of points representing the vertices of the mesh. '
         'The list should include at least 3 points and each point '
         'should be a list of 3 (x, y, z) values.'
     )
 
-    faces: List[conlist(conint(ge=0), min_items=3, max_items=4)] = Field(
+    faces: List[Annotated[List[Annotated[int, Field(ge=0)]], Field(min_length=3, max_length=4)]] = Field(
         ...,
-        min_items=1,
+        min_length=1,
         description='A list of lists with each sub-list having either 3 or 4 '
         'integers. These integers correspond to indices within the list of vertices.'
     )

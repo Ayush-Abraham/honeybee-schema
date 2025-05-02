@@ -1,15 +1,16 @@
 """Schema for project information."""
-from pydantic import BaseModel, Field, constr, AnyUrl
+from pydantic import StringConstraints, BaseModel, Field, AnyUrl
 from typing import List, Union
 
 from .altnumber import Autocalculate
 from .energy.simulation import EfficiencyStandards, ClimateZones, BuildingTypes
+from typing_extensions import Annotated
 
 
 class Location(BaseModel):
     """A Ladybug Location."""
 
-    type: constr(regex='^Location$') = 'Location'
+    type: Annotated[str, StringConstraints(pattern='^Location$')] = 'Location'
 
     city: str = Field(
         '-',
@@ -54,7 +55,7 @@ class Location(BaseModel):
 class ProjectInfo(BaseModel):
     """Project information."""
 
-    type: constr(regex='^ProjectInfo$') = 'ProjectInfo'
+    type: Annotated[str, StringConstraints(pattern='^ProjectInfo$')] = 'ProjectInfo'
 
     north: float = Field(
         0,

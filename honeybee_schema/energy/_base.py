@@ -1,4 +1,5 @@
 """Base class used by various schema objects."""
+
 from pydantic import Field
 import datetime
 
@@ -10,19 +11,19 @@ class EnergyBaseModel(NoExtraBaseModel):
 
     identifier: str = Field(
         ...,
-        regex=r'^[^,;!\n\t]+$',
+        pattern=r"^[^,;!\n\t]+$",
         min_length=1,
         max_length=100,
-        description='Text string for a unique object ID. This identifier remains '
-        'constant as the object is mutated, copied, and serialized to different '
-        'formats (eg. dict, idf, osm). This identifier is also used to reference '
-        'the object across a Model. It must be < 100 characters, use only '
-        'ASCII characters and exclude (, ; ! \\n \\t).'
+        description="Text string for a unique object ID. This identifier remains "
+        "constant as the object is mutated, copied, and serialized to different "
+        "formats (eg. dict, idf, osm). This identifier is also used to reference "
+        "the object across a Model. It must be < 100 characters, use only "
+        "ASCII characters and exclude (, ; ! \\n \\t).",
     )
 
     display_name: str = Field(
         default=None,
-        description='Display name of the object with no character restrictions.'
+        description="Display name of the object with no character restrictions.",
     )
 
 
@@ -31,10 +32,10 @@ class IDdEnergyBaseModel(EnergyBaseModel):
 
     user_data: dict = Field(
         default=None,
-        description='Optional dictionary of user data associated with the object.'
-        'All keys and values of this dictionary should be of a standard data '
-        'type to ensure correct serialization of the object (eg. str, float, '
-        'int, list).'
+        description="Optional dictionary of user data associated with the object."
+        "All keys and values of this dictionary should be of a standard data "
+        "type to ensure correct serialization of the object (eg. str, float, "
+        "int, list).",
     )
 
 
@@ -55,10 +56,10 @@ class DatedBaseModel(NoExtraBaseModel):
             try:
                 datetime.date(2016, v[0], v[1])
             except ValueError:
-                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+                raise ValueError("{}/{} is not a valid date.".format(v[0], v[1]))
         else:
             try:
                 datetime.date(2017, v[0], v[1])
             except ValueError:
-                raise ValueError('{}/{} is not a valid date.'.format(v[0], v[1]))
+                raise ValueError("{}/{} is not a valid date.".format(v[0], v[1]))
         return v

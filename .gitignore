@@ -13,3 +13,4 @@ docs/*.json
 .pytest_cache
 build/
 *.egg-info*
+venv-hb

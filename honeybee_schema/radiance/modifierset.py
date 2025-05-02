@@ -1,8 +1,9 @@
 """ModifierSet Schema"""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 from .._base import NoExtraBaseModel
 from ._base import IDdRadianceBaseModel
 from .modifier import _REFERENCE_UNION_MODIFIERS
+from typing_extensions import Annotated
 
 
 class BaseModifierSetAbridged(NoExtraBaseModel):
@@ -24,32 +25,32 @@ class BaseModifierSetAbridged(NoExtraBaseModel):
 class WallModifierSetAbridged(BaseModifierSetAbridged):
     """Abridged set containing radiance modifiers needed for a model's Walls."""
 
-    type: constr(regex='^WallModifierSetAbridged$') = 'WallModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^WallModifierSetAbridged$')] = 'WallModifierSetAbridged'
 
 
 class FloorModifierSetAbridged(BaseModifierSetAbridged):
     """Abridged set containing radiance modifiers needed for a model's Floors."""
 
-    type: constr(regex='^FloorModifierSetAbridged$') = 'FloorModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^FloorModifierSetAbridged$')] = 'FloorModifierSetAbridged'
 
 
 class RoofCeilingModifierSetAbridged(BaseModifierSetAbridged):
     """Abridged set containing radiance modifiers needed for a model's Roofs."""
 
-    type: constr(regex='^RoofCeilingModifierSetAbridged$') = \
+    type: Annotated[str, StringConstraints(pattern='^RoofCeilingModifierSetAbridged$')] = \
         'RoofCeilingModifierSetAbridged'
 
 
 class ShadeModifierSetAbridged(BaseModifierSetAbridged):
     """Abridged set containing radiance modifiers needed for a model's Shade."""
 
-    type: constr(regex='^ShadeModifierSetAbridged$') = 'ShadeModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^ShadeModifierSetAbridged$')] = 'ShadeModifierSetAbridged'
 
 
 class ApertureModifierSetAbridged(NoExtraBaseModel):
     """Abridged set containing radiance modifiers needed for a model's Apertures."""
 
-    type: constr(regex='^ApertureModifierSetAbridged$') = 'ApertureModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^ApertureModifierSetAbridged$')] = 'ApertureModifierSetAbridged'
 
     window_modifier: str = Field(
         default=None,
@@ -81,7 +82,7 @@ class ApertureModifierSetAbridged(NoExtraBaseModel):
 class DoorModifierSetAbridged(BaseModifierSetAbridged):
     """Abridged set containing radiance modifiers needed for a model's Doors."""
 
-    type: constr(regex='^DoorModifierSetAbridged$') = 'DoorModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^DoorModifierSetAbridged$')] = 'DoorModifierSetAbridged'
 
     interior_glass_modifier: str = Field(
         default=None,
@@ -106,7 +107,7 @@ class DoorModifierSetAbridged(BaseModifierSetAbridged):
 class ModifierSetAbridged(IDdRadianceBaseModel):
     """Abridged set containing all modifiers needed to create a radiance model."""
 
-    type: constr(regex='^ModifierSetAbridged$') = 'ModifierSetAbridged'
+    type: Annotated[str, StringConstraints(pattern='^ModifierSetAbridged$')] = 'ModifierSetAbridged'
 
     wall_set: WallModifierSetAbridged = Field(
         default=None,
@@ -171,31 +172,31 @@ class BaseModifierSet(NoExtraBaseModel):
 class WallModifierSet(BaseModifierSet):
     """Set containing radiance modifiers needed for a model's Walls."""
 
-    type: constr(regex='^WallModifierSet$') = 'WallModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^WallModifierSet$')] = 'WallModifierSet'
 
 
 class FloorModifierSet(BaseModifierSet):
     """Set containing radiance modifiers needed for a model's Floors."""
 
-    type: constr(regex='^FloorModifierSet$') = 'FloorModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^FloorModifierSet$')] = 'FloorModifierSet'
 
 
 class RoofCeilingModifierSet(BaseModifierSet):
     """Set containing radiance modifiers needed for a model's roofs."""
 
-    type: constr(regex='^RoofCeilingModifierSet$') = 'RoofCeilingModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^RoofCeilingModifierSet$')] = 'RoofCeilingModifierSet'
 
 
 class ShadeModifierSet(BaseModifierSet):
     """Set containing radiance modifiers needed for a model's Shade."""
 
-    type: constr(regex='^ShadeModifierSet$') = 'ShadeModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^ShadeModifierSet$')] = 'ShadeModifierSet'
 
 
 class ApertureModifierSet(NoExtraBaseModel):
     """Set containing radiance modifiers needed for a model's Apertures."""
 
-    type: constr(regex='^ApertureModifierSet$') = 'ApertureModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^ApertureModifierSet$')] = 'ApertureModifierSet'
 
     window_modifier: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
@@ -227,7 +228,7 @@ class ApertureModifierSet(NoExtraBaseModel):
 class DoorModifierSet(BaseModifierSet):
     """Set containing radiance modifiers needed for a model's Doors."""
 
-    type: constr(regex='^DoorModifierSet$') = 'DoorModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^DoorModifierSet$')] = 'DoorModifierSet'
 
     interior_glass_modifier: _REFERENCE_UNION_MODIFIERS = Field(
         default=None,
@@ -250,7 +251,7 @@ class DoorModifierSet(BaseModifierSet):
 class ModifierSet(IDdRadianceBaseModel):
     """Set containing all radiance modifiers needed to create a radiance model."""
 
-    type: constr(regex='^ModifierSet$') = 'ModifierSet'
+    type: Annotated[str, StringConstraints(pattern='^ModifierSet$')] = 'ModifierSet'
 
     wall_set: WallModifierSet = Field(
         default=None,

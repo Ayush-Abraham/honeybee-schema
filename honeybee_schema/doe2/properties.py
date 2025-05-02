@@ -1,15 +1,16 @@
 """Model DOE-2 properties."""
-from pydantic import Field, constr
+from pydantic import StringConstraints, Field
 from typing import Union
 
 from .._base import NoExtraBaseModel
 from ..altnumber import Autocalculate
 from ..geometry import Face3D
+from typing_extensions import Annotated
 
 
 class RoomDoe2Properties(NoExtraBaseModel):
 
-    type: constr(regex='^RoomDoe2Properties$') = \
+    type: Annotated[str, StringConstraints(pattern='^RoomDoe2Properties$')] = \
         'RoomDoe2Properties'
 
     assigned_flow: Union[Autocalculate, float] = Field(
@@ -71,5 +72,5 @@ class RoomDoe2Properties(NoExtraBaseModel):
 
 class ModelDoe2Properties(NoExtraBaseModel):
 
-    type: constr(regex='^ModelDoe2Properties$') = \
+    type: Annotated[str, StringConstraints(pattern='^ModelDoe2Properties$')] = \
         'ModelDoe2Properties'
