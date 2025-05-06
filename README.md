@@ -1,7 +1,14 @@
-[![Build Status](https://travis-ci.com/ladybug-tools/honeybee-schema.svg?branch=master)](https://travis-ci.com/ladybug-tools/honeybee-schema)
-[![Coverage Status](https://coveralls.io/repos/github/ladybug-tools/honeybee-schema/badge.svg?branch=master)](https://coveralls.io/github/ladybug-tools/honeybee-schema)
+<!-- [![Build Status](https://travis-ci.com/ladybug-tools/honeybee-schema.svg?branch=master)](https://travis-ci.com/ladybug-tools/honeybee-schema)
+[![Coverage Status](https://coveralls.io/repos/github/ladybug-tools/honeybee-schema/badge.svg?branch=master)](https://coveralls.io/github/ladybug-tools/honeybee-schema) -->
 
-[![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
+***This fork has been modified to work with pydantic v2. Currently, all tests pass except for docs generation.***
+
+***This fork itself relies on a [fork version of `pydantic-openapi-helper`](https://github.com/Ayush-Abraham/pydantic-openapi-helper) as one of its dependencies.***
+
+***This fork relies on python features that require python 3.10 or greater.***
+
+
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
 # honeybee-schema
 
