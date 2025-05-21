@@ -14,3 +14,4 @@ docs/*.json
 build/
 *.egg-info*
 venv-hb
+.venv/

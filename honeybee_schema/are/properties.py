@@ -1,7 +1,6 @@
 """Model are properties."""
 
 from pydantic import StringConstraints, Field
-from typing import List, Union
 from typing_extensions import Annotated
 
 class DoorAREPropertiesAbridged():
@@ -14,7 +13,7 @@ class DoorAREPropertiesAbridged():
         min_length=1,
         max_length=100,
         description="",
-    )
+    )   # TODO:  constructions will need to be altered for are for now keep energy extension code
 
     is_external_door: bool | None = Field(
         default=None,
