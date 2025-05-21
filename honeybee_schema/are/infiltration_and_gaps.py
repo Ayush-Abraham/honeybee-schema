@@ -12,3 +12,8 @@ class GapSizeType(str, Enum):
     small = "Small"
     medium = "Medium"
     large = "Large"
+
+
+
+class InfiltrationPenetration():
+    NotImplemented

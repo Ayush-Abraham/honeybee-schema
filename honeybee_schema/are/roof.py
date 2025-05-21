@@ -8,5 +8,6 @@ from enum import Enum
 from typing_extensions import Annotated
 
 
-class RoofWindow():
-    NotImplemented
+class RoofExposureType(str, Enum):
+    normal = "Normal"
+    parasol = "Parasol"
