@@ -1,11 +1,18 @@
 """Model are properties."""
 
 from pydantic import StringConstraints, Field
+from typing import List, Union
 from typing_extensions import Annotated
 
 #from .are_elements import ElementType
 
-from .are_schema import InfiltrationPenetration,\
+from .are_project import Project
+from .dwelling import Dwelling
+from .designvariation import DesignVariation
+from .global_constructionset import  GlobalConstructionSet
+from .constructionset import ConstructionSetAbridged, ConstructionSet
+from .are_schema import InternalConstruction, ExternalConstruction, GlazedConstruction,\
+                                   InfiltrationPenetration,\
                                    RoofspaceZoneInfiltration, SubfloorZoneInfiltration, \
                                    RoofWindow
 
@@ -24,16 +31,41 @@ class ModelAREProperties():
         str, StringConstraints(pattern="^ModelAREProperties")
     ] = "ModelAREProperties"
 
-    are_project : 
-    are_dwelling : 
+    are_project : Project
+    are_dwelling : Dwelling
+
     
-    are_simulation_configuration : 
+
+    construction_sets: List[Union[ConstructionSetAbridged, ConstructionSet]] | None = (
+        Field(
+            default=None,
+            description="List of all unique ConstructionSets in the Model.",
+        )
+    )
+
+    are_constructions: (
+        List[
+            Union[
+                InternalConstruction,
+                ExternalConstruction,
+                GlazedConstruction
+            ]
+        ]
+        | None
+    ) = Field(
+        default=None,
+        description="A list of all unique constructions in the model. This includes "
+        "constructions used across all Faces, Apertures, Doors, Shades, Room "
+        "ConstructionSets, and the global_construction_set.",
+    )
+
+    global_construction_set :  GlobalConstructionSet = Field(
+        default = GlobalConstructionSet(),
+        description="Global Energy construction set.",
+        frozen=True,
+    )  # default construction set to use if none is specified explicitly in the model
     
-    are_materials : 
-    are_constructions :
-    are_construction_sets :
-    
-    are_designvariation :
+    are_designvariation : DesignVariation
 
 
 class RoomAREPropertiesAbridged():
@@ -41,12 +73,14 @@ class RoomAREPropertiesAbridged():
         str, StringConstraints(pattern="^RoomAREPropertiesAbridged")
     ] = "RoomAREPropertiesAbridged"
 
-    construction: str | None = Field(
+    construction_set: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="",
-    )   # TODO:  constructions will need to be altered for are for now keep energy extension code
+        description="Identifier of a ConstructionSet to specify all default "
+        "constructions for the Faces, Apertures, and Doors of the Room. If "
+        "None, the Room will use the Model global_construction_set.",
+    )  #TODO:  constructions will need to be altered for are for now keep energy extension code
 
     zonetype: ZoneType1 = Field(
         description = "Zone type of this room"
@@ -86,7 +120,7 @@ class FaceAREPropertiesAbridged():
         default=None,
         min_length=1,
         max_length=100,
-        description="",
+        description="identifier for an InternalConstruction or ExternalConstruction representing a wall, roof, floor or ceiling construction",
     )   # TODO:  constructions will need to be altered for are for now keep energy extension code
 
     opening_area: float = Field(
@@ -186,7 +220,7 @@ class ApertureAREPropertiesAbridged():
         default=None,
         min_length=1,
         max_length=100,
-        description="",
+        description="Identifier for a GlazedConstruction representing a window or glazed door construction",
     )   # TODO:  constructions will need to be altered for are for now keep energy extension code
 
     opening_area: float = Field(
@@ -241,7 +275,7 @@ class DoorAREPropertiesAbridged():
         default=None,
         min_length=1,
         max_length=100,
-        description="",
+        description="Identifier for an ExternalConstruction representing a door construction",
     )   # TODO:  constructions will need to be altered for are for now keep energy extension code
 
     is_external_door: bool | None = Field(

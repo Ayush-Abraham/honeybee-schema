@@ -1,11 +1,6 @@
 from pydantic import (
     Field
 )
-from typing import List, Union, Annotated
-from enum import Enum
-
-
-from typing_extensions import Annotated
 
 from .are_schema import Address
 from .are_schema import DwellingExposureType1, DwellingType1
