@@ -1,6 +1,4 @@
 from enum import Enum
 
 
-class LayerDirectionType(str, Enum):
-    forward = "Forward"
-    reverse = "Reverse"
+from .are_enums import LayerDirectionType1

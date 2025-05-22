@@ -3,12 +3,79 @@
 from pydantic import StringConstraints, Field
 from typing_extensions import Annotated
 
-from .are_elements import ElementType
-from .window import WindowType, IndoorCoveringType, OutdoorCoveringType
-from .infiltration_and_gaps import InfiltrationPenetration, GapSizeType
-from .roof import RoofExposureType
-from .roofwindow import RoofWindow
-from .internal_wall import LayerDirectionType
+#from .are_elements import ElementType
+
+from .are_schema import InfiltrationPenetration,\
+                                   RoofspaceZoneInfiltration, SubfloorZoneInfiltration, \
+                                   RoofWindow
+
+
+from .are_schema import WindowType1, IndoorCoveringType1, OutdoorCoveringType1, \
+                       GapSizeType1, RoofExposureType1, LayerDirectionType1, \
+                       ZoneType1
+
+#TODO: should we add and track are ids in the model?
+#TODO: add base class with id for extension classes
+#TODO: add code to match abridged and non abridged classes - see energy extension
+
+
+class ModelAREProperties():
+    type: Annotated[
+        str, StringConstraints(pattern="^ModelAREProperties")
+    ] = "ModelAREProperties"
+
+    are_project : 
+    are_dwelling : 
+    
+    are_simulation_configuration : 
+    
+    are_materials : 
+    are_constructions :
+    are_construction_sets :
+    
+    are_designvariation :
+
+
+class RoomAREPropertiesAbridged():
+    type: Annotated[
+        str, StringConstraints(pattern="^RoomAREPropertiesAbridged")
+    ] = "RoomAREPropertiesAbridged"
+
+    construction: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="",
+    )   # TODO:  constructions will need to be altered for are for now keep energy extension code
+
+    zonetype: ZoneType1 = Field(
+        description = "Zone type of this room"
+    )
+
+    is_heated : bool = Field(
+        description = "True if room/zone is heated"
+    )
+
+    is_cooled : bool = Field(
+        description = "True if room/zone is cooled"
+    )
+
+    is_reflective : bool | None = Field(
+        default = None,
+        description = "confirm use of this field I think it is only for roofspaces"
+    )  #TODO: confirm use of this field
+
+    roofspace_zoneinfiltration : RoofspaceZoneInfiltration | None = Field(
+        default = None,
+        description = "If this room/zone is a roofspace, infiltration properties"
+    )
+    
+    subfloor_zoneinfiltration : SubfloorZoneInfiltration | None = Field(
+        default = None,
+        description = "If this room/zone is a roofspace, infiltration properties"
+    )
+
+
 
 class FaceAREPropertiesAbridged():
     type: Annotated[
@@ -61,7 +128,7 @@ class FaceAREPropertiesAbridged():
         description = "List of ids of External Wall type Faces that shade this face - for building are shading relationships"
     )
 
-    roof_exposure_type : RoofExposureType | None = Field(
+    roof_exposure_type : RoofExposureType1 | None = Field(
         default = None,
         description = "Exposure type if this face is a Roof"
     )
@@ -101,7 +168,7 @@ class FaceAREPropertiesAbridged():
         description = "Level number of this floorceiling"
     )  # TODO: confirm number convention GF = ?? FF = ??
 
-    internalwall_layer_direction_type : LayerDirectionType | None = Field(
+    internalwall_layer_direction_type : LayerDirectionType1 | None = Field(
         default = None,
         description = "For internal walls, which order should the layers in the consstruction be read - forward or backward"
     )
@@ -133,7 +200,7 @@ class ApertureAREPropertiesAbridged():
                       "what percent of window area is open"
     )
 
-    window_type : WindowType = Field(
+    window_type : WindowType1 = Field(
         description = "Type (operator type) of window in the aperture. "
     )
 
@@ -147,18 +214,18 @@ class ApertureAREPropertiesAbridged():
         description = "True if the window has weather stripping"
     )
 
-    gap_size_type : GapSizeType | None = Field(
-        default = GapSizeType.medium,
+    gap_size_type : GapSizeType1 | None = Field(
+        default = GapSizeType1.MEDIUM,
         description = "Gap size type around window frame (construction detail)"
     )
 
-    indoor_covering_type : IndoorCoveringType = Field(
-        default = IndoorCoveringType.holland_blinds,
+    indoor_covering_type : IndoorCoveringType1 = Field(
+        default = IndoorCoveringType1.HOLLAND_BLINDS,
         description = "Indoor covering type over window"
     )
     
-    outdoor_covering_type : OutdoorCoveringType = Field(
-        default = OutdoorCoveringType.no_outdoorcovering,
+    outdoor_covering_type : OutdoorCoveringType1 = Field(
+        default = OutdoorCoveringType1.NONE,
         description = "Outdoor covering type over window"
     )
 
