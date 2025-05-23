@@ -35,7 +35,7 @@ Can we include roofspace infiltration and subfloor infiltration as part of the t
 '''
 from pydantic import StringConstraints, Field
 from .construction import ExternalConstruction, InternalConstruction, GlazedConstruction
-from typing import List, Union
+
 from typing_extensions import Annotated
 
 class WallConstructionSet():
@@ -201,6 +201,11 @@ class RoofCeilingConstructionSet():
         description="An ExternalConstruction for roof-ceiling with adjacency to a garage zone",
     )
 
+    roofceiling_to_ground_construction: InternalConstruction | None = Field(
+        default=None,
+        description="An ExternalConstruction for a roof-ceiling with adjacency to a Ground zone for lower levels cut into slopes",
+    )
+
 class RoofCeilingConstructionSetAbridged():
     """A set of constructions for roofs."""
 
@@ -226,24 +231,73 @@ class RoofCeilingConstructionSetAbridged():
         description="Identifier for an ExternalConstruction for roof-ceiling with adjacency to a garage zone",
     )
 
+    roofceiling_to_ground_construction: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Identifier for an ExternalConstruction for roof-ceiling with adjacency to ground - for lower levels cut into slopes",
+    )
+
     
 
 
 
 
 class DoorConstructionSet():
-    pass
+    """A set of constructions for external doors."""
+
+    external_solid_door_construction: ExternalConstruction | None = Field(
+        default=None,
+        description="An ExternalConstruction for solid external doors",
+    )
+    
+    external_glazed_door_construction: GlazedConstruction | None = Field(
+        default=None,
+        description="A GlazedConstruction for glazed external doors",
+    )
 
 
 class DoorConstructionSetAbridged():
-    pass
+    """A set of constructions for external doors"""
+    
+    external_solid_door_construction: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Identifier for an ExternalConstruction for a solid external door",
+    )
+
+    external_glazed_door_construction: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Identifier for an ExternalConstruction for a solid external door",
+    )
 
 class ApertureConstructionSet():
-    pass
+    window_construction : GlazedConstruction | None = Field(
+        default=None,
+        description="A GlazedConstruction for windows",
+    )  #TODO: review all categories with Aysh
+
+    sliding_door_construction : GlazedConstruction | None = Field(
+        default=None,
+        description="A GlazedConstruction for glazed sliding doors",
+    )
 
 class ApertureConstructionSetAbridged():
-    pass
-
+    window_construction :  str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Identifier for a GlazedConstruction for a window",
+    )
+    sliding_door_construction :  str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Identifier for a GlazedConstruction for a glazed sliding door",
+    )
     
 
 
