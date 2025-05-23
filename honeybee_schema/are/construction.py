@@ -1,4 +1,18 @@
+"""Construction Schema"""
+
+from pydantic import StringConstraints, Field
+from typing import List, Union
+from enum import Enum
+
 from .are_schema import GlazedConstruction, ExternalConstruction, InternalConstruction
+from .schedule import ScheduleRuleset, ScheduleFixedInterval
+from typing_extensions import Annotated
 
 
-'''Unlike the energy extension, we don't need abridged constructions here because we don't need to list materials '''
+class ExternalConstructionAbridged():
+    """External construction"""
+
+    type: Annotated[str, StringConstraints(pattern="^ExternalConstructionAbridged$")] = (
+        "ExternalConstructionAbridged"
+    )
+    

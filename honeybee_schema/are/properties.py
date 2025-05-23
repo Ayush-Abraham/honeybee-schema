@@ -7,11 +7,10 @@ from typing_extensions import Annotated
 #from .are_elements import ElementType
 
 from .are_project import Project
-from .dwelling import Dwelling
 from .designvariation import DesignVariation
 from .global_constructionset import  GlobalConstructionSet
 from .constructionset import ConstructionSetAbridged, ConstructionSet
-from .are_schema import InternalConstruction, ExternalConstruction, GlazedConstruction,\
+from .are_schema import Dwelling, InternalConstruction, ExternalConstruction, GlazedConstruction,\
                                    InfiltrationPenetration,\
                                    RoofspaceZoneInfiltration, SubfloorZoneInfiltration, \
                                    RoofWindow
@@ -106,7 +105,7 @@ class RoomAREPropertiesAbridged():
     
     subfloor_zoneinfiltration : SubfloorZoneInfiltration | None = Field(
         default = None,
-        description = "If this room/zone is a roofspace, infiltration properties"
+        description = "If this room/zone is a subfloor, infiltration properties"
     )
 
 
@@ -154,7 +153,7 @@ class FaceAREPropertiesAbridged():
 
     are_shadedby_shades : list[str] | None = Field(
         default = None,
-        description = "List of ids of Shades that shade this face - for building are shading relationships"
+        description = "List of ids of detached/orphaned Shades that shade this face - for building are shading relationships"
     )
 
     are_shadedby_walls : list[str] | None = Field(
@@ -278,8 +277,7 @@ class DoorAREPropertiesAbridged():
         description="Identifier for an ExternalConstruction representing a door construction",
     )   # TODO:  constructions will need to be altered for are for now keep energy extension code
 
-    is_external_door: bool | None = Field(
-        default=None,
+    is_external_door: bool = Field(
         description="True if this door opens to the outdoors"
     )
 
