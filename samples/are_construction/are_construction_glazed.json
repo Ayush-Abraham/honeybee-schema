@@ -1,0 +1,11 @@
+{
+    "id": "9017a638-2300-462f-b448-e8815d0c2093",
+    "name": "HALWS-050-045 Aluminium A SG Single Glazed: U = 5.0: SHGC = 0.45",
+    "construction_type": "Window",
+    "from_library": "NatHERS Default Windows_20230404_1721_WERS.csv",
+    "system_code": "HALWS-050-045",
+    "frame_colour_type": "Dark",
+    "frame_absorptance": 85,
+    "frame_type": "Null",
+    "frame_fraction": 0
+}

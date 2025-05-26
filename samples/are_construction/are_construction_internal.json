@@ -1,0 +1,43 @@
+{
+    "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+    "name": "FT5 (ceramic tile)",
+    "construction_type": "FloorCeiling",
+    "construction_layers": {
+        "construction_layer": [
+            {
+                "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                "layer_number": 1,
+                "material": 11,
+                "thickness": 8
+            },
+            {
+                "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                "layer_number": 2,
+                "material": 22,
+                "thickness": 6
+            },
+            {
+                "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                "layer_number": 3,
+                "material": 32,
+                "thickness": 19
+            },
+            {
+                "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                "layer_number": 4,
+                "material": 529,
+                "thickness": 90
+            },
+            {
+                "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                "layer_number": 5,
+                "material": 34,
+                "thickness": 10
+            }
+        ]
+    },
+    "first_colour_type": "Medium",
+    "first_absorptance": 50,
+    "last_colour_type": "Medium",
+    "last_absorptance": 50
+}
