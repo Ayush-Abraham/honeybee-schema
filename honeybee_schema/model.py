@@ -290,6 +290,8 @@ class RoomPropertiesAbridged(BaseModel):
 
     doe2: RoomDoe2Properties | None = Field(default=None)
 
+    # are: RoomAREPropertiesAbridged |None = Field(default=None)
+
 
 class Room(IDdBaseModel):
     type: Annotated[str, StringConstraints(pattern="^Room$")] = "Room"
