@@ -2,10 +2,11 @@
 
 from pydantic import StringConstraints, Field
 
-from .are_schema import GlazedConstruction, ExternalConstruction, InternalConstruction
+from .are_schema import GlazedConstruction, ExternalConstruction , InternalConstruction
 
 from typing_extensions import Annotated
-
+'''
+#TODO: I can't work out if these classes are required or not : I think not, we have one less 'layer' compared to energy because we do not need to define materials directly
 
 class ExternalConstructionAbridged():
     """External construction"""
@@ -39,3 +40,4 @@ class GlazedConstructionAbridged():
     identifier: str = Field(
         description = "identifier for glazed construction to match it to full definition"
     )
+'''

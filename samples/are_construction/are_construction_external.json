@@ -1,0 +1,20 @@
+{
+    "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+    "name": "WT13",
+    "construction_type": "ExternalWall",
+    "construction_layers": {
+        "construction_layer": [
+            {
+                "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                "layer_number": 1,
+                "material": 62,
+                "thickness": 20
+            }
+        ]
+    },
+    "external_colour_type": "Medium",
+    "external_absorptance": 50,
+    "internal_colour_type": "Medium",
+    "internal_absorptance": 50,
+    "emissivity": 1.0
+}

@@ -1,0 +1,39 @@
+{
+    "identifier": "sample_id",
+    "display_name": "Sample abridged are construction set",
+    "type": "AREConstructionSetAbridged",
+    "wall_set": {
+        "type": "WallAREConstructionSetAbridged",
+        "wall_to_air_construction": "sample_external_wall_construction",
+        "wall_to_ground_construction": "sample_internal_wall_construction",
+        "wall_to_adj_construction": "sample_internal_wall_construction",
+        "wall_to_neighbour_construction": "sample_internal_wall_construction",
+        "wall_to_roofspace_construction": "sample_internal_wall_construction",
+        "wall_to_subfloor_construction": "sample_internal_wall_construction"
+    },
+    "floor_set": {
+        "type": "FloorAREConstructionSetAbridged",
+        "floor_to_ground_construction": "sample_external_floor_construction",
+        "floor_to_subfloor_construction": "sample_internal_floor_construction",
+        "floorceiling_to_adj_construction": "sample_internal_floor_construction",
+        "floorceiling_to_neighbour_construction": "sample_internal_floor_construction",
+        "floor_to_air_construction": "sample_external_floor_construction"
+    },
+    "roof_ceiling_set": {
+        "type": "RoofCeilingAREConstructionSetAbridged",
+        "roof_to_roofspace_construction": "sample_external_roof_construction",
+        "roofceiling_to_zone_construction": "sample_external_roof_construction",
+        "roofceiling_to_garage_construction": "sample_external_roof_construction",
+        "roofceiling_to_ground_construction": "sample_external_roof_construction"
+    },
+    "aperture_set": {
+        "type": "ApertureAREConstructionSetAbridged",
+        "window_construction": "sample_glazed_construction",
+        "sliding_door_construction": "sample_glazed_construction"
+    },
+    "door_set": {
+        "type": "DoorAREConstructionSetAbridged",
+        "external_solid_door_construction": "sample_external_door_construction",
+        "external_glazed_door_construction": "sample_glazed_door_construction"
+    }
+}

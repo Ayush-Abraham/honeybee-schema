@@ -33,194 +33,239 @@ hb_energy has interior/exterior/ground subsets of Floor Face Aperture Roof
 
 Can we include roofspace infiltration and subfloor infiltration as part of the templates?
 '''
-from pydantic import StringConstraints, Field
-from .construction import ExternalConstruction, InternalConstruction, GlazedConstruction
+from pydantic import BaseModel, StringConstraints, Field
+from construction import ExternalConstruction as ExternalAREConstruction, InternalConstruction as InternalAREConstruction, GlazedConstruction as GlazedAREConstruction
 
 from typing_extensions import Annotated
 
-class WallConstructionSet():
+
+class NameOptionalIDBase(BaseModel):
+    """ Base class when identifier is optinal """
+    identifier: str | None = Field(
+        default = None,
+        description = "unique identifier"
+    )
+
+    display_name: str | None = Field(
+        default = None,
+        description = "Name"
+    )
+
+class NameRequiredIDBase(BaseModel):
+    """ Base class when identifier is required """
+    identifier: str = Field(
+        description = "unique identifier"
+    )
+
+    display_name: str | None = Field(
+        default = None,
+        description = "Name"
+    )
+
+
+
+
+class WallAREConstructionSet(NameOptionalIDBase):
     """A set of constructions for walls."""
-
-    wall_to_air_construction: ExternalConstruction | None = Field(
-        default=None,
-        description="An ExternalConstruction for walls with an Outdoors boundary condition.",
+    type: Annotated[str, StringConstraints(pattern="^WallAREConstructionSet$")] = (
+        "WallAREConstructionSet"
     )
 
-    wall_to_ground_construction: InternalConstruction | None = Field(
+    wall_to_air_construction: ExternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for walls with adjacency to Ground zone",
+        description="An ExternalAREConstruction for walls with an Outdoors boundary condition.",
     )
 
-    wall_to_adj_construction: InternalConstruction | None = Field(
+    wall_to_ground_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for walls with adjacency to another zone",
+        description="An InternalAREConstruction for walls with adjacency to Ground zone",
     )
 
-    wall_to_neighbour_construction: InternalConstruction | None = Field(
+    wall_to_adj_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for walls with adjacency to Neighbour zone",
+        description="An InternalAREConstruction for walls with adjacency to another zone",
     )
 
-    wall_to_roofspace_construction: InternalConstruction | None = Field(
+    wall_to_neighbour_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for walls with adjacency to Roofspace zone",
+        description="An InternalAREConstruction for walls with adjacency to Neighbour zone",
     )
 
-    wall_to_subfloor_construction: InternalConstruction | None = Field(
+    wall_to_roofspace_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for walls with adjacency to Subfloor zone",
+        description="An InternalAREConstruction for walls with adjacency to Roofspace zone",
     )
 
-class WallConstructionSetAbridged():
+    wall_to_subfloor_construction: InternalAREConstruction | None = Field(
+        default=None,
+        description="An InternalAREConstruction for walls with adjacency to Subfloor zone",
+    )
+
+class WallAREConstructionSetAbridged(NameOptionalIDBase):
     """A set of constructions for wall, floor, or roof assemblies."""
+    type: Annotated[str, StringConstraints(pattern="^WallAREConstructionSetAbridged$")] = (
+        "WallAREConstructionSetAbridged"
+    )
 
     wall_to_air_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for walls with an Outdoors boundary condition.",
+        description="Identifier for an ExternalAREConstruction for walls with an Outdoors boundary condition.",
     )
 
     wall_to_ground_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for InternalConstruction for walls with adjacency to Ground zone",
+        description="Identifier for InternalAREConstruction for walls with adjacency to Ground zone",
     )
 
     wall_to_adj_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an InternalConstruction for walls with adjacency to another zone",
+        description="Identifier for an InternalAREConstruction for walls with adjacency to another zone",
     )
 
     wall_to_neighbour_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an InternalConstruction for walls with adjacency to Neighbour zone",
+        description="Identifier for an InternalAREConstruction for walls with adjacency to Neighbour zone",
     )
 
     wall_to_roofspace_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an InternalConstruction for walls with adjacency to Roofspace zone",
+        description="Identifier for an InternalAREConstruction for walls with adjacency to Roofspace zone",
     )
 
     wall_to_subfloor_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an InternalConstruction for walls with adjacency to Subfloor zone",
+        description="Identifier for an InternalAREConstruction for walls with adjacency to Subfloor zone",
     )
 
 
-class FloorConstructionSet():
+class FloorAREConstructionSet(NameOptionalIDBase):
     """A set of constructions for floors."""
-
-    floor_to_ground_construction: InternalConstruction | None = Field(
-        default=None,
-        description="An InternalConstruction for floors with adjacency to Ground zone",
+    type: Annotated[str, StringConstraints(pattern="^FloorAREConstructionSet$")] = (
+        "FloorAREConstructionSet"
     )
 
-    floor_to_subfloor_construction: InternalConstruction | None = Field(
+    floor_to_ground_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for floors with adjacency to Subfloor zone",
+        description="An InternalAREConstruction for floors with adjacency to Ground zone",
     )
 
-    floorceiling_to_adj_construction: InternalConstruction | None = Field(
+    floor_to_subfloor_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for floorceilings with adjacency to another zone",
+        description="An InternalAREConstruction for floors with adjacency to Subfloor zone",
     )
 
-    floorceiling_to_neighbour_construction: InternalConstruction | None = Field(
+    floorceiling_to_adj_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An InternalConstruction for floorceilings with adjacency to Neighbour zone",
+        description="An InternalAREConstruction for floorceilings with adjacency to another zone",
     )
 
-    floor_to_air_construction: ExternalConstruction | None = Field(
+    floorceiling_to_neighbour_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An ExternalConstruction for floors with an Outdoors boundary condition.",
+        description="An InternalAREConstruction for floorceilings with adjacency to Neighbour zone",
     )
 
-class FloorConstructionSetAbridged():
+    floor_to_air_construction: ExternalAREConstruction | None = Field(
+        default=None,
+        description="An ExternalAREConstruction for floors with an Outdoors boundary condition.",
+    )
+
+class FloorAREConstructionSetAbridged(NameOptionalIDBase):
     """A set of constructions for floors"""
+    type: Annotated[str, StringConstraints(pattern="^FloorAREConstructionSetAbridged$")] = (
+        "FloorAREConstructionSetAbridged"
+    )
     floor_to_ground_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifer for an InternalConstruction for floors with adjacency to Ground zone",
+        description="Identifer for an InternalAREConstruction for floors with adjacency to Ground zone",
     )
 
     floor_to_subfloor_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifer for an  InternalConstruction for floors with adjacency to Subfloor zone",
+        description="Identifer for an  InternalAREConstruction for floors with adjacency to Subfloor zone",
     )
 
     floorceiling_to_adj_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifer for an  InternalConstruction for floorceilings with adjacency to another zone",
+        description="Identifer for an  InternalAREConstruction for floorceilings with adjacency to another zone",
     )
 
     floorceiling_to_neighbour_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifer for an  InternalConstruction for floorceilings with adjacency to Neighbour zone",
+        description="Identifer for an  InternalAREConstruction for floorceilings with adjacency to Neighbour zone",
     )
 
     floor_to_air_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifer for an An ExternalConstruction for floors with an Outdoors boundary condition.",
+        description="Identifer for an An ExternalAREConstruction for floors with an Outdoors boundary condition.",
     )
     
 
-class RoofCeilingConstructionSet():
+class RoofCeilingAREConstructionSet(NameOptionalIDBase):
     """A set of constructions for roofs."""
-
-    roof_to_roofspace_construction: InternalConstruction | None = Field(
-        default=None,
-        description="An ExternalConstruction for roofs with adjacency to Roofspace zone",
+    type: Annotated[str, StringConstraints(pattern="^RoofCeilingAREConstructionSet$")] = (
+        "RoofCeilingAREConstructionSet"
     )
 
-    roofceiling_to_zone_construction: InternalConstruction | None = Field(
+    roof_to_roofspace_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An ExternalConstruction for a roof-ceiling with adjacency to an internal zone",
+        description="An ExternalAREConstruction for roofs with adjacency to Roofspace zone",
     )
 
-    roofceiling_to_garage_construction: InternalConstruction | None = Field(
+    roofceiling_to_zone_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An ExternalConstruction for roof-ceiling with adjacency to a garage zone",
+        description="An ExternalAREConstruction for a roof-ceiling with adjacency to an internal zone",
     )
 
-    roofceiling_to_ground_construction: InternalConstruction | None = Field(
+    roofceiling_to_garage_construction: InternalAREConstruction | None = Field(
         default=None,
-        description="An ExternalConstruction for a roof-ceiling with adjacency to a Ground zone for lower levels cut into slopes",
+        description="An ExternalAREConstruction for roof-ceiling with adjacency to a garage zone",
     )
 
-class RoofCeilingConstructionSetAbridged():
+    roofceiling_to_ground_construction: InternalAREConstruction | None = Field(
+        default=None,
+        description="An ExternalAREConstruction for a roof-ceiling with adjacency to a Ground zone for lower levels cut into slopes",
+    )
+
+class RoofCeilingAREConstructionSetAbridged(NameOptionalIDBase):
     """A set of constructions for roofs."""
+    type: Annotated[str, StringConstraints(pattern="^RoofCeilingAREConstructionSetAbridged$")] = (
+        "RoofCeilingAREConstructionSetAbridged"
+    )
 
     roof_to_roofspace_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for ExternalConstruction for roofs with adjacency to Roofspace zone",
+        description="Identifier for ExternalAREConstruction for roofs with adjacency to Roofspace zone",
     )
 
     roofceiling_to_zone_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for a roof-ceiling with adjacency to an internal zone",
+        description="Identifier for an ExternalAREConstruction for a roof-ceiling with adjacency to an internal zone",
     )
 
     #TODO: should there be a roofceiling to garage here for flat/raked garage roofs?
@@ -228,14 +273,14 @@ class RoofCeilingConstructionSetAbridged():
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for roof-ceiling with adjacency to a garage zone",
+        description="Identifier for an ExternalAREConstruction for roof-ceiling with adjacency to a garage zone",
     )
 
     roofceiling_to_ground_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for roof-ceiling with adjacency to ground - for lower levels cut into slopes",
+        description="Identifier for an ExternalAREConstruction for roof-ceiling with adjacency to ground - for lower levels cut into slopes",
     )
 
     
@@ -243,60 +288,74 @@ class RoofCeilingConstructionSetAbridged():
 
 
 
-class DoorConstructionSet():
+class DoorAREConstructionSet(NameOptionalIDBase):
     """A set of constructions for external doors."""
+    type: Annotated[str, StringConstraints(pattern="^DoorAREConstructionSet$")] = (
+        "DoorAREConstructionSet"
+    )
 
-    external_solid_door_construction: ExternalConstruction | None = Field(
+    external_solid_door_construction: ExternalAREConstruction | None = Field(
         default=None,
-        description="An ExternalConstruction for solid external doors",
+        description="An ExternalAREConstruction for solid external doors",
     )
     
-    external_glazed_door_construction: GlazedConstruction | None = Field(
+    external_glazed_door_construction: GlazedAREConstruction | None = Field(
         default=None,
-        description="A GlazedConstruction for glazed external doors",
+        description="A GlazedAREConstruction for glazed external doors",
     )
 
 
-class DoorConstructionSetAbridged():
+class DoorAREConstructionSetAbridged(NameOptionalIDBase):
     """A set of constructions for external doors"""
+    type: Annotated[str, StringConstraints(pattern="^DoorAREConstructionSetAbridged$")] = (
+        "DoorAREConstructionSetAbridged"
+    )
     
     external_solid_door_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for a solid external door",
+        description="Identifier for an ExternalAREConstruction for a solid external door",
     )
 
     external_glazed_door_construction: str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for an ExternalConstruction for a solid external door",
+        description="Identifier for an ExternalAREConstruction for a solid external door",
     )
 
-class ApertureConstructionSet():
-    window_construction : GlazedConstruction | None = Field(
+class ApertureAREConstructionSet(NameOptionalIDBase):
+    """ A set of constructions for glazed apertures """
+    type: Annotated[str, StringConstraints(pattern="^ApertureAREConstructionSet$")] = (
+        "ApertureAREConstructionSet"
+    )
+    window_construction : GlazedAREConstruction | None = Field(
         default=None,
-        description="A GlazedConstruction for windows",
+        description="A GlazedAREConstruction for windows",
     )  #TODO: review all categories with Aysh
 
-    sliding_door_construction : GlazedConstruction | None = Field(
+    sliding_door_construction : GlazedAREConstruction | None = Field(
         default=None,
-        description="A GlazedConstruction for glazed sliding doors",
+        description="A GlazedAREConstruction for glazed sliding doors",
     )
 
-class ApertureConstructionSetAbridged():
+class ApertureAREConstructionSetAbridged(NameOptionalIDBase):
+    """ A set of constructions for glazed apertures"""
+    type: Annotated[str, StringConstraints(pattern="^ApertureAREConstructionSetAbridged$")] = (
+        "ApertureAREConstructionSetAbridged"
+    )
     window_construction :  str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for a GlazedConstruction for a window",
+        description="Identifier for a GlazedAREConstruction for a window",
     )
     sliding_door_construction :  str | None = Field(
         default=None,
         min_length=1,
         max_length=100,
-        description="Identifier for a GlazedConstruction for a glazed sliding door",
+        description="Identifier for a GlazedAREConstruction for a glazed sliding door",
     )
     
 
@@ -311,72 +370,73 @@ class ApertureConstructionSetAbridged():
 
 
 
-class ConstructionSetAbridged():
+class AREConstructionSetAbridged(NameRequiredIDBase):
     """A set of constructions for different surface types and boundary conditions."""
 
-    type: Annotated[str, StringConstraints(pattern="^ConstructionSetAbridged$")] = (
-        "ConstructionSetAbridged"
+    type: Annotated[str, StringConstraints(pattern="^AREConstructionSetAbridged$")] = (
+        "AREConstructionSetAbridged"
     )
 
-    wall_set: WallConstructionSetAbridged | None = Field(
+    
+    wall_set: WallAREConstructionSetAbridged | None = Field(
         default=None,
-        description="A WallConstructionSetAbridged object for this ConstructionSet.",
+        description="A WallAREConstructionSetAbridged object for this ConstructionSet.",
     )
 
-    floor_set: FloorConstructionSetAbridged | None = Field(
+    floor_set: FloorAREConstructionSetAbridged | None = Field(
         default=None,
-        description="A FloorConstructionSetAbridged object for this ConstructionSet.",
+        description="A FloorAREConstructionSetAbridged object for this ConstructionSet.",
     )
 
-    roof_ceiling_set: RoofCeilingConstructionSetAbridged | None = Field(
+    roof_ceiling_set: RoofCeilingAREConstructionSetAbridged | None = Field(
         default=None,
-        description="A RoofCeilingConstructionSetAbridged object for this "
+        description="A RoofCeilingAREConstructionSetAbridged object for this "
         "ConstructionSet.",
     )
 
-    aperture_set: ApertureConstructionSetAbridged | None = Field(
+    aperture_set: ApertureAREConstructionSetAbridged | None = Field(
         default=None,
-        description="A ApertureConstructionSetAbridged object for this ConstructionSet.",
+        description="A ApertureAREConstructionSetAbridged object for this ConstructionSet.",
     )
 
-    door_set: DoorConstructionSetAbridged | None = Field(
+    door_set: DoorAREConstructionSetAbridged | None = Field(
         default=None,
-        description="A DoorConstructionSetAbridged object for this ConstructionSet.",
+        description="A DoorAREConstructionSetAbridged object for this ConstructionSet.",
     )
 
     
 
 
-class ConstructionSet(ConstructionSetAbridged):
+class AREConstructionSet(NameRequiredIDBase):
     """A set of constructions for different surface types and boundary conditions."""
 
-    type: Annotated[str, StringConstraints(pattern="^ConstructionSet$")] = (
-        "ConstructionSet"
+    type: Annotated[str, StringConstraints(pattern="^AREConstructionSet$")] = (
+        "AREConstructionSet"
     )
 
-    wall_set: WallConstructionSet | None = Field(
+    wall_set: WallAREConstructionSet | None = Field(
         default=None,
-        description="A WallConstructionSet object for this ConstructionSet.",
+        description="A WallAREConstructionSet object for this ConstructionSet.",
     )
 
-    floor_set: FloorConstructionSet | None = Field(
+    floor_set: FloorAREConstructionSet | None = Field(
         default=None,
-        description="A FloorConstructionSet object for this ConstructionSet.",
+        description="A FloorAREConstructionSet object for this ConstructionSet.",
     )
 
-    roof_ceiling_set: RoofCeilingConstructionSet | None = Field(
+    roof_ceiling_set: RoofCeilingAREConstructionSet | None = Field(
         default=None,
-        description="A RoofCeilingConstructionSet object for this ConstructionSet.",
+        description="A RoofCeilingAREConstructionSet object for this ConstructionSet.",
     )
 
-    aperture_set: ApertureConstructionSet | None = Field(
+    aperture_set: ApertureAREConstructionSet | None = Field(
         default=None,
-        description="A ApertureConstructionSet object for this ConstructionSet.",
+        description="A ApertureAREConstructionSet object for this ConstructionSet.",
     )
 
-    door_set: DoorConstructionSet | None = Field(
+    door_set: DoorAREConstructionSet | None = Field(
         default=None,
-        description="A DoorConstructionSet object for this ConstructionSet.",
+        description="A DoorAREConstructionSet object for this ConstructionSet.",
     )
 
     

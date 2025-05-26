@@ -1,0 +1,532 @@
+{
+    "identifier": "Sample id",
+    "display_name": "Sample are construction set",
+    "type": "AREConstructionSet",
+    "wall_set": {
+        "type": "WallAREConstructionSet",
+        "wall_to_air_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            },
+            "external_colour_type": "Medium",
+            "external_absorptance": 50,
+            "internal_colour_type": "Medium",
+            "internal_absorptance": 50,
+            "emissivity": 1.0
+        },
+        "wall_to_ground_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "wall_to_adj_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "wall_to_neighbour_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "wall_to_roofspace_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "wall_to_subfloor_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        }
+    },
+    "floor_set": {
+        "type": "FloorAREConstructionSet",
+        "floor_to_ground_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            }
+        },
+        "floor_to_subfloor_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "floorceiling_to_adj_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "floorceiling_to_neighbour_construction": {
+            "id": "8978eefc-27ad-4f26-be94-f6710c741ec2",
+            "name": "FT5 (ceramic tile)",
+            "construction_type": "FloorCeiling",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "0956394c-6ee6-475c-a516-3e91d7246c91",
+                        "layer_number": 1,
+                        "material": 11,
+                        "thickness": 8
+                    },
+                    {
+                        "id": "292c423f-991c-46ea-881b-3a121ebe61fb",
+                        "layer_number": 2,
+                        "material": 22,
+                        "thickness": 6
+                    },
+                    {
+                        "id": "1a054854-e5bb-4f62-a1b2-36a705faa88b",
+                        "layer_number": 3,
+                        "material": 32,
+                        "thickness": 19
+                    },
+                    {
+                        "id": "b8ff897e-836e-4257-95b5-9c14257e88c8",
+                        "layer_number": 4,
+                        "material": 529,
+                        "thickness": 90
+                    },
+                    {
+                        "id": "7ad585ae-a187-4c71-8de9-e28c3c190f0b",
+                        "layer_number": 5,
+                        "material": 34,
+                        "thickness": 10
+                    }
+                ]
+            },
+            "first_colour_type": "Medium",
+            "first_absorptance": 50,
+            "last_colour_type": "Medium",
+            "last_absorptance": 50
+        },
+        "floor_to_air_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            },
+            "external_colour_type": "Medium",
+            "external_absorptance": 50,
+            "internal_colour_type": "Medium",
+            "internal_absorptance": 50,
+            "emissivity": 1.0
+        }
+    },
+    "roof_ceiling_set": {
+        "type": "RoofCeilingAREConstructionSet",
+        "roof_to_roofspace_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            }
+        },
+        "roofceiling_to_zone_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            }
+        },
+        "roofceiling_to_garage_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            }
+        },
+        "roofceiling_to_ground_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            }
+        }
+    },
+    "aperture_set": {
+        "type": "ApertureAREConstructionSet",
+        "window_construction": {
+            "id": "9017a638-2300-462f-b448-e8815d0c2093",
+            "name": "HALWS-050-045 Aluminium A SG Single Glazed: U = 5.0: SHGC = 0.45",
+            "construction_type": "Window",
+            "from_library": "NatHERS Default Windows_20230404_1721_WERS.csv",
+            "system_code": "HALWS-050-045",
+            "frame_colour_type": "Dark",
+            "frame_absorptance": 85,
+            "frame_type": "Null",
+            "frame_fraction": 0
+        },
+        "sliding_door_construction": {
+            "id": "9017a638-2300-462f-b448-e8815d0c2093",
+            "name": "HALWS-050-045 Aluminium A SG Single Glazed: U = 5.0: SHGC = 0.45",
+            "construction_type": "Window",
+            "from_library": "NatHERS Default Windows_20230404_1721_WERS.csv",
+            "system_code": "HALWS-050-045",
+            "frame_colour_type": "Dark",
+            "frame_absorptance": 85,
+            "frame_type": "Null",
+            "frame_fraction": 0
+        }
+    },
+    "door_set": {
+        "type": "DoorAREConstructionSet",
+        "external_solid_door_construction": {
+            "id": "6cc66799-0817-4b88-9091-b280d1eb3f8b",
+            "name": "WT13",
+            "construction_type": "ExternalWall",
+            "construction_layers": {
+                "construction_layer": [
+                    {
+                        "id": "fe92739f-e7da-470a-980a-a893b38e742e",
+                        "layer_number": 1,
+                        "material": 62,
+                        "thickness": 20
+                    }
+                ]
+            },
+            "external_colour_type": "Medium",
+            "external_absorptance": 50,
+            "internal_colour_type": "Medium",
+            "internal_absorptance": 50,
+            "emissivity": 1.0
+        },
+        "external_glazed_door_construction": {
+            "id": "9017a638-2300-462f-b448-e8815d0c2093",
+            "name": "HALWS-050-045 Aluminium A SG Single Glazed: U = 5.0: SHGC = 0.45",
+            "construction_type": "Window",
+            "from_library": "NatHERS Default Windows_20230404_1721_WERS.csv",
+            "system_code": "HALWS-050-045",
+            "frame_colour_type": "Dark",
+            "frame_absorptance": 85,
+            "frame_type": "Null",
+            "frame_fraction": 0
+        }
+    }
+}
