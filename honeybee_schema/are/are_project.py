@@ -7,11 +7,11 @@ from .are_schema import PlanDocument, Assessor, Client, Acknowledgement, \
 from .are_schema import BuildingClassType1, AccuRateEngineVersion1, \
                         ChenathEngineVersion1, DeclarationOfInterestType1
 
-class Project():
-    name : str | None = Field(
-        default = None,
-        description = "Project name"
-    )
+from ._base import RequiredIDBase  
+
+class Project(RequiredIDBase):
+    # id is required for project objects as it matches are object
+
     code : str | None = Field(
         default = None,
         description = "Project description"

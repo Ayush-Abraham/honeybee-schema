@@ -9,7 +9,7 @@ from typing_extensions import Annotated
 from .are_project import Project
 from .designvariation import DesignVariation
 from .global_constructionset import  GlobalConstructionSet
-from .constructionset import ConstructionSetAbridged, ConstructionSet
+from .constructionset import AREConstructionSet, AREConstructionSetAbridged
 from .are_schema import Dwelling, InternalConstruction, ExternalConstruction, GlazedConstruction,\
                                    InfiltrationPenetration,\
                                    RoofspaceZoneInfiltration, SubfloorZoneInfiltration, \
@@ -20,12 +20,12 @@ from .are_schema import WindowType1, IndoorCoveringType1, OutdoorCoveringType1, 
                        GapSizeType1, RoofExposureType1, LayerDirectionType1, \
                        ZoneType1
 
+from ._base import OptionalIDBase, RequiredIDBase   # ids are optional as they do not correspond directly to are objects
+
 #TODO: should we add and track are ids in the model?
-#TODO: add base class with id for extension classes
 #TODO: add code to match abridged and non abridged classes - see energy extension
 
-
-class ModelAREProperties():
+class ModelAREProperties(OptionalIDBase):
     type: Annotated[
         str, StringConstraints(pattern="^ModelAREProperties")
     ] = "ModelAREProperties"
@@ -35,7 +35,7 @@ class ModelAREProperties():
 
     
 
-    construction_sets: List[Union[ConstructionSetAbridged, ConstructionSet]] | None = (
+    construction_sets: List[Union[AREConstructionSetAbridged, AREConstructionSet]] | None = (
         Field(
             default=None,
             description="List of all unique ConstructionSets in the Model.",
@@ -67,7 +67,8 @@ class ModelAREProperties():
     are_designvariation : DesignVariation
 
 
-class RoomAREPropertiesAbridged():
+class RoomAREPropertiesAbridged(RequiredIDBase):
+    # id is required as room corresponds to zone are object 
     type: Annotated[
         str, StringConstraints(pattern="^RoomAREPropertiesAbridged")
     ] = "RoomAREPropertiesAbridged"
@@ -110,7 +111,8 @@ class RoomAREPropertiesAbridged():
 
 
 
-class FaceAREPropertiesAbridged():
+class FaceAREPropertiesAbridged(RequiredIDBase):
+    # id is required as face corresponds to an ARE object
     type: Annotated[
         str, StringConstraints(pattern="^FaceAREPropertiesAbridged")
     ] = "FaceAREPropertiesAbridged"
@@ -210,7 +212,7 @@ class FaceAREPropertiesAbridged():
     
 
 
-class ApertureAREPropertiesAbridged():
+class ApertureAREPropertiesAbridged(RequiredIDBase):
     type: Annotated[
         str, StringConstraints(pattern="^ApertureAREPropertiesAbridged")
     ] = "ApertureAREPropertiesAbridged"
@@ -265,7 +267,7 @@ class ApertureAREPropertiesAbridged():
 
 
 
-class DoorAREPropertiesAbridged():
+class DoorAREPropertiesAbridged(RequiredIDBase):
     type: Annotated[
         str, StringConstraints(pattern="^DoorAREPropertiesAbridged$")
     ] = "DoorAREPropertiesAbridged"

@@ -6,7 +6,9 @@ from datetime import datetime
 
 from .are_schema import HeatingCoolingLimit, Ventilation
 
-class DesignVariation():
+from ._base import OptionalIDBase
+
+class DesignVariation(OptionalIDBase):
     name: str | None = Field(
         default = None,
         description = "Name of design variation"

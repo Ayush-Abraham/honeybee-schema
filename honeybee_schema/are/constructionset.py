@@ -29,43 +29,21 @@ Scratch files have:
 551 580: Ceilings to neighbour 
 581 610: Walls to neighbour
 
-hb_energy has interior/exterior/ground subsets of Floor Face Aperture Roof
 
-Can we include roofspace infiltration and subfloor infiltration as part of the templates?
+
+Can we include roofspace infiltration and subfloor infiltration as part of the templates? Yes we can but I am not sure it makes sense.
 '''
-from pydantic import BaseModel, StringConstraints, Field
-from construction import ExternalConstruction as ExternalAREConstruction, InternalConstruction as InternalAREConstruction, GlazedConstruction as GlazedAREConstruction
+from pydantic import StringConstraints, Field
+from .are_schema import ExternalConstruction as ExternalAREConstruction, InternalConstruction as InternalAREConstruction, GlazedConstruction as GlazedAREConstruction  # rename these to distinguish from energy extension properties
 
 from typing_extensions import Annotated
 
 
-class NameOptionalIDBase(BaseModel):
-    """ Base class when identifier is optinal """
-    identifier: str | None = Field(
-        default = None,
-        description = "unique identifier"
-    )
-
-    display_name: str | None = Field(
-        default = None,
-        description = "Name"
-    )
-
-class NameRequiredIDBase(BaseModel):
-    """ Base class when identifier is required """
-    identifier: str = Field(
-        description = "unique identifier"
-    )
-
-    display_name: str | None = Field(
-        default = None,
-        description = "Name"
-    )
+from ._base import RequiredIDBase, OptionalIDBase  # full constructionsets require ids so that abridged constructionsets can refer to them.  
+                                                   #Top level constructionsets AND abridged constructionsets require ids so that properties can refer to them
 
 
-
-
-class WallAREConstructionSet(NameOptionalIDBase):
+class WallAREConstructionSet(RequiredIDBase):
     """A set of constructions for walls."""
     type: Annotated[str, StringConstraints(pattern="^WallAREConstructionSet$")] = (
         "WallAREConstructionSet"
@@ -101,7 +79,7 @@ class WallAREConstructionSet(NameOptionalIDBase):
         description="An InternalAREConstruction for walls with adjacency to Subfloor zone",
     )
 
-class WallAREConstructionSetAbridged(NameOptionalIDBase):
+class WallAREConstructionSetAbridged(OptionalIDBase):
     """A set of constructions for wall, floor, or roof assemblies."""
     type: Annotated[str, StringConstraints(pattern="^WallAREConstructionSetAbridged$")] = (
         "WallAREConstructionSetAbridged"
@@ -150,7 +128,7 @@ class WallAREConstructionSetAbridged(NameOptionalIDBase):
     )
 
 
-class FloorAREConstructionSet(NameOptionalIDBase):
+class FloorAREConstructionSet(RequiredIDBase):
     """A set of constructions for floors."""
     type: Annotated[str, StringConstraints(pattern="^FloorAREConstructionSet$")] = (
         "FloorAREConstructionSet"
@@ -181,7 +159,7 @@ class FloorAREConstructionSet(NameOptionalIDBase):
         description="An ExternalAREConstruction for floors with an Outdoors boundary condition.",
     )
 
-class FloorAREConstructionSetAbridged(NameOptionalIDBase):
+class FloorAREConstructionSetAbridged(OptionalIDBase):
     """A set of constructions for floors"""
     type: Annotated[str, StringConstraints(pattern="^FloorAREConstructionSetAbridged$")] = (
         "FloorAREConstructionSetAbridged"
@@ -222,7 +200,7 @@ class FloorAREConstructionSetAbridged(NameOptionalIDBase):
     )
     
 
-class RoofCeilingAREConstructionSet(NameOptionalIDBase):
+class RoofCeilingAREConstructionSet(RequiredIDBase):
     """A set of constructions for roofs."""
     type: Annotated[str, StringConstraints(pattern="^RoofCeilingAREConstructionSet$")] = (
         "RoofCeilingAREConstructionSet"
@@ -248,7 +226,7 @@ class RoofCeilingAREConstructionSet(NameOptionalIDBase):
         description="An ExternalAREConstruction for a roof-ceiling with adjacency to a Ground zone for lower levels cut into slopes",
     )
 
-class RoofCeilingAREConstructionSetAbridged(NameOptionalIDBase):
+class RoofCeilingAREConstructionSetAbridged(OptionalIDBase):
     """A set of constructions for roofs."""
     type: Annotated[str, StringConstraints(pattern="^RoofCeilingAREConstructionSetAbridged$")] = (
         "RoofCeilingAREConstructionSetAbridged"
@@ -288,7 +266,7 @@ class RoofCeilingAREConstructionSetAbridged(NameOptionalIDBase):
 
 
 
-class DoorAREConstructionSet(NameOptionalIDBase):
+class DoorAREConstructionSet(RequiredIDBase):
     """A set of constructions for external doors."""
     type: Annotated[str, StringConstraints(pattern="^DoorAREConstructionSet$")] = (
         "DoorAREConstructionSet"
@@ -305,7 +283,7 @@ class DoorAREConstructionSet(NameOptionalIDBase):
     )
 
 
-class DoorAREConstructionSetAbridged(NameOptionalIDBase):
+class DoorAREConstructionSetAbridged(OptionalIDBase):
     """A set of constructions for external doors"""
     type: Annotated[str, StringConstraints(pattern="^DoorAREConstructionSetAbridged$")] = (
         "DoorAREConstructionSetAbridged"
@@ -325,7 +303,7 @@ class DoorAREConstructionSetAbridged(NameOptionalIDBase):
         description="Identifier for an ExternalAREConstruction for a solid external door",
     )
 
-class ApertureAREConstructionSet(NameOptionalIDBase):
+class ApertureAREConstructionSet(RequiredIDBase):
     """ A set of constructions for glazed apertures """
     type: Annotated[str, StringConstraints(pattern="^ApertureAREConstructionSet$")] = (
         "ApertureAREConstructionSet"
@@ -340,7 +318,7 @@ class ApertureAREConstructionSet(NameOptionalIDBase):
         description="A GlazedAREConstruction for glazed sliding doors",
     )
 
-class ApertureAREConstructionSetAbridged(NameOptionalIDBase):
+class ApertureAREConstructionSetAbridged(OptionalIDBase):
     """ A set of constructions for glazed apertures"""
     type: Annotated[str, StringConstraints(pattern="^ApertureAREConstructionSetAbridged$")] = (
         "ApertureAREConstructionSetAbridged"
@@ -370,7 +348,7 @@ class ApertureAREConstructionSetAbridged(NameOptionalIDBase):
 
 
 
-class AREConstructionSetAbridged(NameRequiredIDBase):
+class AREConstructionSetAbridged(RequiredIDBase):
     """A set of constructions for different surface types and boundary conditions."""
 
     type: Annotated[str, StringConstraints(pattern="^AREConstructionSetAbridged$")] = (
@@ -407,7 +385,7 @@ class AREConstructionSetAbridged(NameRequiredIDBase):
     
 
 
-class AREConstructionSet(NameRequiredIDBase):
+class AREConstructionSet(RequiredIDBase):
     """A set of constructions for different surface types and boundary conditions."""
 
     type: Annotated[str, StringConstraints(pattern="^AREConstructionSet$")] = (
