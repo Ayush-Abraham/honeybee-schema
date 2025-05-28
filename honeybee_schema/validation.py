@@ -55,7 +55,9 @@ class ParentTypes(str, Enum):
 
 
 class ValidationParent(BaseModel):
-    type: Annotated[str, StringConstraints(pattern="^ValidationParent$")] = "ValidationParent"
+    type: Annotated[str, StringConstraints(pattern="^ValidationParent$")] = (
+        "ValidationParent"
+    )
 
     parent_type: ParentTypes = Field(
         ..., description="Text for the type of object that the parent is."
@@ -69,11 +71,15 @@ class ValidationParent(BaseModel):
         description="Text string for the unique ID of the parent object.",
     )
 
-    name: str = Field(default=None, description="Display name of the parent object.")
+    name: str | None = Field(
+        default=None, description="Display name of the parent object."
+    )
 
 
 class ValidationError(BaseModel):
-    type: Annotated[str, StringConstraints(pattern="^ValidationError$")] = "ValidationError"
+    type: Annotated[str, StringConstraints(pattern="^ValidationError$")] = (
+        "ValidationError"
+    )
 
     code: str = Field(
         ...,
@@ -107,19 +113,22 @@ class ValidationError(BaseModel):
         ..., description="Text for the type of object that caused the error."
     )
 
-    element_id: List[Annotated[str, StringConstraints(min_length=1, max_length=100, pattern=r"^[^,;!\n\t]+$")]] = (
-        Field(
-            ...,
-            description="A list of text strings for the unique object IDs that caused "
-            "the error. The list typically contains a single item but there are some types "
-            "errors that stem from multiple objects like mis-matched area adjacencies "
-            "or overlapping Room geometries. Note that the IDs in this list can be the "
-            "identifier of a core object like a Room or a Face or it can be for an "
-            "extension object like a SensorGrid or a Construction.",
-        )
+    element_id: List[
+        Annotated[
+            str,
+            StringConstraints(min_length=1, max_length=100, pattern=r"^[^,;!\n\t]+$"),
+        ]
+    ] = Field(
+        ...,
+        description="A list of text strings for the unique object IDs that caused "
+        "the error. The list typically contains a single item but there are some types "
+        "errors that stem from multiple objects like mis-matched area adjacencies "
+        "or overlapping Room geometries. Note that the IDs in this list can be the "
+        "identifier of a core object like a Room or a Face or it can be for an "
+        "extension object like a SensorGrid or a Construction.",
     )
 
-    element_name: List[str] = Field(
+    element_name: List[str] | None = Field(
         default=None,
         description="A list of text strings for the display names of the objects "
         "that caused the error.",
@@ -131,7 +140,7 @@ class ValidationError(BaseModel):
         "what exactly is invalid about the element.",
     )
 
-    parents: List[List[ValidationParent]] = Field(
+    parents: List[List[ValidationParent]] | None = Field(
         default=None,
         description="A list lists where each sub-list corresponds to one of the "
         "objects in the element_id property. Each sub-list contains information for "
@@ -141,14 +150,14 @@ class ValidationError(BaseModel):
         "for an Aperture that has a parent Face with a parent Room.",
     )
 
-    top_parents: List[ValidationParent] = Field(
+    top_parents: List[ValidationParent] | None = Field(
         default=None,
         description="A list of top-level parent objects for the specific case of "
         "duplicate child-object identifiers, where several top-level parents "
         "are involved.",
     )
 
-    helper_geometry: List[Union[Point3D, LineSegment3D]] = Field(
+    helper_geometry: List[Union[Point3D, LineSegment3D]] | None = Field(
         default=None,
         description="An optional list of geometry objects that helps illustrate "
         "where exactly issues with invalid geometry exist within the Honeybee object. "
@@ -162,7 +171,9 @@ class ValidationError(BaseModel):
 
 
 class ValidationReport(BaseModel):
-    type: Annotated[str, StringConstraints(pattern="^ValidationReport$")] = "ValidationReport"
+    type: Annotated[str, StringConstraints(pattern="^ValidationReport$")] = (
+        "ValidationReport"
+    )
 
     app_name: str = Field(
         "Honeybee",
@@ -194,7 +205,7 @@ class ValidationReport(BaseModel):
         "serialize. It will be an empty string if serialization was successful.",
     )
 
-    errors: List[ValidationError] = Field(
+    errors: List[ValidationError] | None = Field(
         default=None,
         description="A list of objects for each error that was discovered in the model. "
         "This will be an empty list or None if no errors were found.",

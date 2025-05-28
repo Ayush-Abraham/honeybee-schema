@@ -29,7 +29,7 @@ class _DiffObjectBase(BaseModel):
         description="Text string for the unique object ID that has changed.",
     )
 
-    element_name: str = Field(
+    element_name: str | None = Field(
         None,
         description="Text string for the display name of the object that has changed.",
     )
@@ -80,7 +80,7 @@ class ChangedObject(_DiffObjectBase):
         "included in the ChangedObject, even when geometry_changed is False.",
     )
 
-    existing_geometry: List[dict] = Field(
+    existing_geometry: List[dict] | None = Field(
         default=None,
         description="A list of DisplayFace3D dictionaries for the existing (base) "
         "geometry. The schema of DisplayFace3D can be found in the ladybug-display-"
@@ -118,9 +118,11 @@ class AddedObject(_DiffObjectBase):
 
 
 class ComparisonReport(BaseModel):
-    type: Annotated[str, StringConstraints(pattern="^ComparisonReport$")] = "ComparisonReport"
+    type: Annotated[str, StringConstraints(pattern="^ComparisonReport$")] = (
+        "ComparisonReport"
+    )
 
-    changed_objects: List[ChangedObject] = Field(
+    changed_objects: List[ChangedObject] | None = Field(
         default=None,
         description="A list of ChangedObject definitions for each top-level object "
         "that has changed in the model. To be a changed object, the object identifier "
@@ -128,14 +130,14 @@ class ComparisonReport(BaseModel):
         "or extension attributes) has experienced a meaningful change.",
     )
 
-    deleted_objects: List[DeletedObject] = Field(
+    deleted_objects: List[DeletedObject] | None = Field(
         default=None,
         description="A list of DeletedObject definitions for each top-level object "
         "that has been deleted in the process of going from the base model to the "
         "new model.",
     )
 
-    added_objects: List[AddedObject] = Field(
+    added_objects: List[AddedObject] | None = Field(
         default=None,
         description="A list of AddedObject definitions for each top-level object "
         "that has been added in the process of going from the base model to the "
@@ -144,7 +146,9 @@ class ComparisonReport(BaseModel):
 
 
 class ChangedInstruction(_DiffObjectBase):
-    type: Annotated[str, StringConstraints(pattern="^ChangedInstruction$")] = "ChangedInstruction"
+    type: Annotated[str, StringConstraints(pattern="^ChangedInstruction$")] = (
+        "ChangedInstruction"
+    )
 
     update_geometry: bool = Field(
         True,
@@ -171,30 +175,36 @@ class ChangedInstruction(_DiffObjectBase):
 
 
 class DeletedInstruction(_DiffObjectBase):
-    type: Annotated[str, StringConstraints(pattern="^DeletedInstruction$")] = "DeletedInstruction"
+    type: Annotated[str, StringConstraints(pattern="^DeletedInstruction$")] = (
+        "DeletedInstruction"
+    )
 
 
 class AddedInstruction(_DiffObjectBase):
-    type: Annotated[str, StringConstraints(pattern="^AddedInstruction$")] = "AddedInstruction"
+    type: Annotated[str, StringConstraints(pattern="^AddedInstruction$")] = (
+        "AddedInstruction"
+    )
 
 
 class SyncInstructions(BaseModel):
-    type: Annotated[str, StringConstraints(pattern="^SyncInstructions$")] = "SyncInstructions"
+    type: Annotated[str, StringConstraints(pattern="^SyncInstructions$")] = (
+        "SyncInstructions"
+    )
 
-    changed_objects: List[ChangedInstruction] = Field(
+    changed_objects: List[ChangedInstruction] | None = Field(
         default=None,
         description="A list of ChangedInstruction definitions for each top-level "
         "object with properties to transfer from the new/updated model to the "
         "base/existing model.",
     )
 
-    deleted_objects: List[DeletedInstruction] = Field(
+    deleted_objects: List[DeletedInstruction] | None = Field(
         default=None,
         description="A list of DeletedInstruction definitions for each top-level object "
         "to be deleted from the base/existing model.",
     )
 
-    added_objects: List[AddedInstruction] = Field(
+    added_objects: List[AddedInstruction] | None = Field(
         default=None,
         description="A list of AddedInstruction definitions for each top-level object "
         "to be added to the base/existing model from the new/updated model.",

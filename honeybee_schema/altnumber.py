@@ -2,7 +2,7 @@
 
 from typing import Annotated
 
-from pydantic import constr, StringConstraints
+from pydantic import StringConstraints
 from ._base import NoExtraBaseModel
 
 

@@ -5,7 +5,7 @@ from typing import List, Union, Annotated
 
 from ._base import NoExtraBaseModel
 from .altnumber import Autocalculate
-from typing_extensions import Annotated
+# from typing_extensions import Annotated
 
 
 class Outdoors(NoExtraBaseModel):
